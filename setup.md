@@ -113,10 +113,12 @@ The minimum setup to get a Minecraft server running. This will not include extra
 
 - `EXTERNAL STEP`
 
-  - In the host machine, generate a key for each account, name them something like `id_ed25519_linodemc_<user>`
+  - In the host machine, generate a key for each account (`beamc`, `beamcs`, and `beaprom`)
 
   ```bash
-  ssh-keygen -t ed25519
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beamc
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beamcs
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beaprom
   ```
 
 - In each account create the `.ssh` directory
@@ -158,7 +160,7 @@ The minimum setup to get a Minecraft server running. This will not include extra
 
 - `EXTERNAL STEP`
 
-  - Create or edit the ~/.ssh/config to copy the following content
+  - Create or edit the `~/.ssh/config` to copy the following content
 
   ```
   Host linodemc-beamc
