@@ -57,10 +57,16 @@ Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setu
 
    _Ensure to replace `<beamcs-password>` with the account password_
 
-5. Run the Ansible playbook run command
+5. Run the Ansible base_setup playbook run command
 
    ```bash
    ansible-playbook -i inventory.ini playbooks/base_setup.yml --ask-pass --ask-vault-pass
    ```
 
    _If you haven't already SSH'd into the remote machine, do so at least once to add the host's fingerprint to your known_hosts file_
+
+6. Run the Ansible setup playbook run command
+
+   ```bash
+   ansible-playbook -i inventory.ini playbooks/setup.yml --ask-become-pass --ask-vault-pass
+   ```

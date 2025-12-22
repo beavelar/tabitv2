@@ -1,0 +1,35 @@
+---
+- name: UFW allow SSH port ({{ ssh_port }})
+  community.general.ufw:
+    port: "{{ ssh_port }}"
+    proto: tcp
+    rule: allow
+- name: UFW allow Minecraft port ({{ minecraft_port }})
+  community.general.ufw:
+    port: "{{ minecraft_port }}"
+    proto: tcp
+    rule: allow
+- name: UFW allow HTTP ({{ nginx_http_port }})
+  community.general.ufw:
+    port: "{{ nginx_http_port }}"
+    proto: tcp
+    rule: allow
+- name: UFW allow HTTPS ({{ nginx_https_port }})
+  community.general.ufw:
+    port: "{{ nginx_https_port }}"
+    proto: tcp
+    rule: allow
+- name: UFW default deny incoming
+  community.general.ufw:
+    default: deny
+    direction: incoming
+- name: UFW default allow outgoing
+  community.general.ufw:
+    default: allow
+    direction: outgoing
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+- name: UFW reload
+  ansible.builtin.command: ufw reload
+  changed_when: false

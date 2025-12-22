@@ -23,6 +23,7 @@ java_version: "jdk-21.0.9+10"
 
 # NeoForge Configuration (beamc user)
 minecraft_base_dir: "/home/beamc/minecraft"
+minecraft_port: 25565
 minecraft_server_name: "tabitv2"
 neoforge_download_url: "https://maven.neoforged.net/releases/net/neoforged/neoforge/{{ neoforge_version }}/neoforge-{{ neoforge_version }}-installer.jar"
 neoforge_installer_name: "neoforge-{{ neoforge_version }}-installer.jar"
@@ -72,7 +73,7 @@ minecraft_server_properties:
   player-idle-timeout: "30"
   prevent-proxy-connections: "false"
   pvp: "true"
-  query.port: "25565"
+  query.port: "{{ minecraft_port }}"
   rate-limit: "0"
   rcon.password: ""
   rcon.port: "25575"
@@ -83,7 +84,7 @@ minecraft_server_properties:
   resource-pack-prompt: ""
   resource-pack-sha1: ""
   server-ip: ""
-  server-port: "25565"
+  server-port: "{{ minecraft_port }}"
   simulation-distance: "8"
   spawn-animals: "true"
   spawn-monsters: "true"
@@ -130,6 +131,8 @@ grafana_root_url: "https://{{ grafana_domain }}"
 # Nginx
 nginx_grafana_conf_path: "/etc/nginx/sites-available/{{ grafana_domain }}"
 nginx_grafana_symlink_path: "/etc/nginx/sites-enabled/{{ grafana_domain }}"
+nginx_http_port: 80
+nginx_https_port: 443
 
 # Certbot
 # TODO: Uncomment and set email to receive certbot renewal notifications

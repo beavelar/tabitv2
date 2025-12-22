@@ -1,0 +1,45 @@
+---
+- name: Set up Minecraft Server with Monitoring and Security
+  become: yes
+  hosts: minecraft_servers
+  post_tasks:
+    - name: "EXTERNAL STEP: Add firewall rules in your hosting provider"
+      ansible.builtin.debug:
+        msg: "Make sure to add firewall rules for ports {{ ssh_port }}/tcp, {{ minecraft_port }}/tcp, {{ nginx_http_port }}/tcp, {{ nginx_https_port }}/tcp, in your hosting provider's panel."
+    - name: "EXTERNAL STEP: Configure Cloudflare DNS and SSL/TLS"
+      ansible.builtin.debug:
+        msg: |
+          1. In Cloudflare DNS, add an A record for `minecraft.{{ minecraft_server_name }}.com` pointing to your server's IP, with Proxy status Disabled.
+          2. Add an A record for `grafana.{{ grafana_domain }}` pointing to your server's IP, with Proxy status Enabled.
+          3. Set SSL/TLS encryption to `Full (strict)`.
+          4. Turn on `Bot fight mode` and update `robots.txt` configuration in Cloudflare Security -> Settings.
+  pre_tasks:
+    - name: Ensure Python 3 is available
+      ansible.builtin.raw: test -e /usr/bin/python3 || (apt update && apt install -y python3)
+      changed_when: false
+      failed_when: false
+      when: ansible_python_interpreter is not defined or ansible_python_interpreter | basename != 'python3'
+    - name: Ensure python3-apt is installed for apt module
+      ansible.builtin.apt:
+        name: python3-apt
+        state: present
+        update_cache: yes
+      when: ansible_facts.distribution == 'Ubuntu' or ansible_facts.distribution == 'Debian'
+  roles:
+    - role: ufw
+    # - role: users_ssh
+    # - role: java_neoforge
+    #   become_user: beamc
+    # - role: monitoring_node_exporter
+    #   become_user: beaprom
+    # - role: monitoring_mc_exporter
+    #   become_user: beamc
+    # - role: monitoring_prometheus
+    #   become_user: beaprom
+    # - role: grafana
+    # - role: nginx_certbot
+    # - role: fail2ban
+    # - role: nginx_hardening
+  vars_files:
+    - ../group_vars/all.yml
+    - ../group_vars/vault.yml
