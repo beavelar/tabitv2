@@ -30,11 +30,11 @@
     - role: service_accounts
     - role: java_neoforge
       become_user: beamc
-    # - role: monitoring_node_exporter
+    # - role: node_exporter
     #   become_user: beaprom
-    # - role: monitoring_mc_exporter
+    # - role: minecraft_exporter
     #   become_user: beamc
-    # - role: monitoring_prometheus
+    # - role: prometheus
     #   become_user: beaprom
     # - role: grafana
     # - role: certbot
