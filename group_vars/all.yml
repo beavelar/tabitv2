@@ -1,4 +1,5 @@
 # General System Settings
+domain: tabitv2.com
 ssh_port: 1738
 
 # User IDs and Groups
@@ -29,7 +30,253 @@ neoforge_installer_name: "neoforge-{{ neoforge_version }}-installer.jar"
 neoforge_version: "21.1.216"
 
 # Minecraft Mods (beamc user)
-minecraft_mods_archive_local_path: "./mods.tar.gz" # Path on your Ansible control machine
+minecraft_mods:
+  - name: All-The-Wood-Weve-Got-NeoForge-2.2.3.jar
+    url: https://cdn.modrinth.com/data/qvq8iHWh/versions/remQLUL1/All-The-Wood-Weve-Got-NeoForge-2.2.3.jar
+    checksum: "sha256:c908adcd9efebfd43bd132527e44ae9bdfcdeed648518db492cba9fc7ad8c4a7"
+  - name: Clumps-neoforge-1.21.1-19.0.0.1.jar
+    url: https://cdn.modrinth.com/data/Wnxd13zP/versions/jo7lDoK4/Clumps-neoforge-1.21.1-19.0.0.1.jar
+    checksum: "sha256:b524ccdace2ef8fd19f5b2074f7de1103ac5065c52553f064c00e098346c293e"
+  - name: CobbleFurnies-neoforge-1.0.jar
+    url: https://cdn.modrinth.com/data/AXY1OO9m/versions/Q8EbTwPC/CobbleFurnies-neoforge-1.0.jar
+    checksum: "sha256:c0433f1e519a2c659b28f1e0699959582252f2194c41286c794950ce8da4f003"
+  - name: Cobblemon-Utility+-neoforge-1.7.2.jar
+    url: https://cdn.modrinth.com/data/ePxok8ID/versions/HkBwiI9u/Cobblemon-Utility%2B-neoforge-1.7.2.jar
+    checksum: "sha256:4c7f970452f592597ff6c59ec897efd08e9ddd311097412276961bde3903390b"
+  - name: Cobblemon-neoforge-1.7.1+1.21.1.jar
+    url: https://cdn.modrinth.com/data/MdwFAVRL/versions/Uz1QF4Md/Cobblemon-neoforge-1.7.1%2B1.21.1.jar
+    checksum: "sha256:e70d4b0938625bc91d80fc10852949d99416baaafd7f390d5896feb06b6565ad"
+  - name: CobblemonMoveInspector-neoforge-1.3.0.jar
+    url: https://cdn.modrinth.com/data/MqcGBDhG/versions/kzhF1fB9/CobblemonMoveInspector-neoforge-1.3.0.jar
+    checksum: "sha256:9e688281967bdb371a9769d522bb92157f3ebd9b29d6dbd60e5825cec23435be"
+  - name: Cobblepedia-NeoForge-0.7.1.jar
+    url: https://cdn.modrinth.com/data/2obPz7jf/versions/dEMwrap5/Cobblepedia-NeoForge-0.7.1.jar
+    checksum: "sha256:d978d6223e46c23e2d812235b89d2bf8c297b8155c13640a1de7a503484c996e"
+  - name: Cobbreeding-neoforge-2.1.1.jar
+    url: https://cdn.modrinth.com/data/ItmVb4zY/versions/LnSjeUiM/Cobbreeding-neoforge-2.1.1.jar
+    checksum: "sha256:fafc922a6426f2ddbd0e961ddd485544175985a59dbfe6a440e4583a126d72d1"
+  - name: Corgilib-NeoForge-1.21.1-5.0.0.7.jar
+    url: https://cdn.modrinth.com/data/ziOp6EO8/versions/nQqU8c1K/Corgilib-NeoForge-1.21.1-5.0.0.7.jar
+    checksum: "sha256:a43d07254c09bc5e40ab1b4897dfaef76594aab7ef1cdb4c3ec895081186119f"
+  - name: DungeonsArise-1.21.1-2.1.68-release.jar
+    url: https://cdn.modrinth.com/data/8DfbfASn/versions/XIRJSFQ0/DungeonsArise-1.21.1-2.1.68-release.jar
+    checksum: "sha256:7eee1eca7e3b2c6c1bede055934f391ae2e8349ffe33e106f451176d2cfcf0e4"
+  - name: GlitchCore-neoforge-1.21.1-2.1.0.0.jar
+    url: https://cdn.modrinth.com/data/s3dmwKy5/versions/8wmCpbQ2/GlitchCore-neoforge-1.21.1-2.1.0.0.jar
+    checksum: "sha256:31589ffc136ac031319db88fa7ce2599ba789ae5d18bd5125e1857e20a834993"
+  - name: ImmediatelyFast-NeoForge-1.6.9+1.21.1.jar
+    url: https://cdn.modrinth.com/data/5ZwdcRci/versions/7TFPpGUU/ImmediatelyFast-NeoForge-1.6.9%2B1.21.1.jar
+    checksum: "sha256:ab57fe7c34851aea7493ebc0b2d39a6c430c50607a69765719002d61129f6a85"
+  - name: InventoryProfilesNext-neoforge-1.21.1-2.2.2.jar
+    url: https://cdn.modrinth.com/data/O7RBXm3n/versions/aBrNcdGN/InventoryProfilesNext-neoforge-1.21.1-2.2.2.jar
+    checksum: "sha256:e7c2b12efe07f8719d91dec31d65d6836054742bb07c7c62ab6b3a9ae8953f3c"
+  - name: MoreCobblemonTweaks-neoforge-1.2.1.jar
+    url: https://cdn.modrinth.com/data/5KWlJ2HC/versions/Cj2uNtQo/MoreCobblemonTweaks-neoforge-1.2.1.jar
+    checksum: "sha256:83a0f190ae99d4fd637f4c6ddfed0c9b657f534214055c73d0bec686bd5a7bd6"
+  - name: MythsAndLegends-neoforge-1.9.0.jar
+    url: https://cdn.modrinth.com/data/CaOWby9K/versions/IsIw5iAW/MythsAndLegends-neoforge-1.9.0.jar
+    checksum: "sha256:0f7fcb84a4d3d950beb4d7f10371d282a678160a0e8433524431b42a1b74a50b"
+  - name: Oh-The-Biomes-Weve-Gone-NeoForge-2.5.3.jar
+    url: https://cdn.modrinth.com/data/NTi7d3Xc/versions/FS1ccTQf/Oh-The-Biomes-Weve-Gone-NeoForge-2.5.3.jar
+    checksum: "sha256:a86e58f3b7ae2b60fe8d7949b27da61ee1150bf9dd2026bf8f28087b144ffc39"
+  - name: Oh-The-Trees-Youll-Grow-neoforge-1.21.1-5.1.2.jar
+    url: https://cdn.modrinth.com/data/g8NOG5OR/versions/44blpeJ7/Oh-The-Trees-Youll-Grow-neoforge-1.21.1-5.1.2.jar
+    checksum: "sha256:c1194f42e831e220b9b7f962b70c4cebd9af94657391a4c4190513b8113ff151"
+  - name: Patchouli-1.21.1-92-NEOFORGE.jar
+    url: https://cdn.modrinth.com/data/nU0bVIaL/versions/h6hKI2ob/Patchouli-1.21.1-92-NEOFORGE.jar
+    checksum: "sha256:579f23933f1db9569f35f7770b9f2b0b6592a9389d7b3411272487bf5c77c98d"
+  - name: Radical Gyms & Structures - RGS.jar
+    url: https://cdn.modrinth.com/data/3sLJoaQH/versions/mk1teRxf/Radical%20Gyms%20%26%20Structures%20-%20RGS.jar
+    checksum: "sha256:0b46a96e94d7ca037a0deddfec445616c32ae11535caf3d4e68cfd6fbe93822f"
+  - name: SimpleTMs-neoforge-2.3.3.jar
+    url: https://cdn.modrinth.com/data/yFqR0DNc/versions/uaKfPMYS/SimpleTMs-neoforge-2.3.3.jar
+    checksum: "sha256:0eae5947d21dea7df1c2cf8cf8423929aff55cf5b807c85a9c1e5ad422ebf9c6"
+  - name: TerraBlender-neoforge-1.21.1-4.1.0.8.jar
+    url: https://cdn.modrinth.com/data/kkmrDlKT/versions/6e8GCrLb/TerraBlender-neoforge-1.21.1-4.1.0.8.jar
+    checksum: "sha256:0c49b5ef447a7f09100e9a210888a7347fbda0aa75322063991f6063b25fe3f9"
+  - name: Terralith_1.21.x_v2.5.8.jar
+    url: https://cdn.modrinth.com/data/8oi3bsk5/versions/MuJMtPGQ/Terralith_1.21.x_v2.5.8.jar
+    checksum: "sha256:00333a130ac38b7b9ca93700098d5e02e0612bdc2d3522aada2f36e5600621bf"
+  - name: Xaeros_Minimap_25.2.10_NeoForge_1.21.jar
+    url: https://cdn.modrinth.com/data/1bokaNcj/versions/DyuxZXfy/Xaeros_Minimap_25.2.10_NeoForge_1.21.jar
+    checksum: "sha256:35d5217f497d7747a78670b0280b28dc22630a244ffd93a09c4cf8789b9353ba"
+  - name: YungsApi-1.21.1-NeoForge-5.1.6.jar
+    url: https://cdn.modrinth.com/data/Ua7DFN59/versions/ZB22DE9q/YungsApi-1.21.1-NeoForge-5.1.6.jar
+    checksum: "sha256:08e1d21690d3213a4c62de6b6cf79f3527afb2e72e0cad0e1848d46eb8f682ca"
+  - name: YungsBetterDungeons-1.21.1-NeoForge-5.1.4.jar
+    url: https://cdn.modrinth.com/data/o1C1Dkj5/versions/D6aZn0Em/YungsBetterDungeons-1.21.1-NeoForge-5.1.4.jar
+    checksum: "sha256:61816c3b7c9d92c6b44f93dce87ceb0a22827f20285d5d9c4d10d519d734de04"
+  - name: YungsBetterEndIsland-1.21.1-NeoForge-3.1.2.jar
+    url: https://cdn.modrinth.com/data/2BwBOmBQ/versions/I52NZ1qK/YungsBetterEndIsland-1.21.1-NeoForge-3.1.2.jar
+    checksum: "sha256:8005f1ea798d09fc05dad07a21ed1f393a523a718197cdbd37b1ce6d9a17e4a4"
+  - name: YungsBetterMineshafts-1.21.1-NeoForge-5.1.1.jar
+    url: https://cdn.modrinth.com/data/HjmxVlSr/versions/Go3nbneL/YungsBetterMineshafts-1.21.1-NeoForge-5.1.1.jar
+    checksum: "sha256:5625930dfb3240820d6e4ecf55fff0c39f70ce782fad117a4d418251184c7be0"
+  - name: YungsBetterNetherFortresses-1.21.1-NeoForge-3.1.5.jar
+    url: https://cdn.modrinth.com/data/Z2mXHnxP/versions/iopJiJQp/YungsBetterNetherFortresses-1.21.1-NeoForge-3.1.5.jar
+    checksum: "sha256:5450a64a7036237f449496837e08f3e5b3aa1d7974a10df43944172def75d8ff"
+  - name: YungsBridges-1.21.1-NeoForge-5.1.1.jar
+    url: https://cdn.modrinth.com/data/Ht4BfYp6/versions/urkCzBf6/YungsBridges-1.21.1-NeoForge-5.1.1.jar
+    checksum: "sha256:bf93a85422a6b457358c3b56352641a97ec09cc37dec18b2cedcac2bd1ff9bec"
+  - name: accessories-neoforge-1.1.0-beta.52+1.21.1.jar
+    url: https://cdn.modrinth.com/data/jtmvUHXj/versions/CtRim6mz/accessories-neoforge-1.1.0-beta.52%2B1.21.1.jar
+    checksum: "sha256:7a3f655c1593b14424b678b5f06c6f87374b8551aa7496dae5e64143ae5a59b0"
+  - name: alltheleaks-1.1.4+1.21.1-neoforge.jar
+    url: https://mediafilez.forgecdn.net/files/7284/934/alltheleaks-1.1.4%2B1.21.1-neoforge.jar
+    checksum: "sha256:62ca28012fca03662e981f483b1b2f7b6de267f78df60385de88a69134b62d39"
+  - name: appleskin-neoforge-mc1.21-3.0.7.jar
+    url: https://cdn.modrinth.com/data/EsAfCjCV/versions/kztxpjAA/appleskin-neoforge-mc1.21-3.0.7.jar
+    checksum: "sha256:99a2f1b22f05b1215c6c967c0cf0518a39d30e18a94ac3dac248385e38dcfe10"
+  - name: architectury-13.0.8-neoforge.jar
+    url: https://cdn.modrinth.com/data/lhGA9TYQ/versions/ZxYGwlk0/architectury-13.0.8-neoforge.jar
+    checksum: "sha256:5ec578f814e8cca87aeffa6e424032e78d9ea5ea6b603dd834c2dc13c31141ee"
+  - name: awesomedungeonocean-neoforge-1.21.1-3.3.0.jar
+    url: https://cdn.modrinth.com/data/hn56Bq5n/versions/4oZY86TA/awesomedungeonocean-neoforge-1.21.1-3.3.0.jar
+    checksum: "sha256:902bc8958787db6c1221ec68e457239d62f8df60d215ad4d3b203e95e366680a"
+  - name: balm-neoforge-1.21.1-21.0.55.jar
+    url: https://cdn.modrinth.com/data/MBAkmtvl/versions/rrxxIYvJ/balm-neoforge-1.21.1-21.0.55.jar
+    checksum: "sha256:81b0f29d6c0929021065a04476fa5e79a87a006e18654f91d501074151074e14"
+  - name: beautify-neoforge-1.21.1-2.0.2.jar
+    url: https://cdn.modrinth.com/data/9BPuv4vL/versions/xVfv1ket/beautify-neoforge-1.21.1-2.0.2.jar
+    checksum: "sha256:30fe272345eb016408d9144a7d33795a8bff0f33f68d9ab71805d0088b818f26"
+  - name: betterloot-2.0+1.21.1.jar
+    url: https://cdn.modrinth.com/data/oJabiJYC/versions/U5m3LmJA/betterloot-2.0%2B1.21.1.jar
+    checksum: "sha256:a5cdf4c99fa09aef856cdd249dadc427f5e11cc2e3de70d445c157cfb64e262c"
+  - name: capturexp-neoforge-1.7.1-1.3.0.jar
+    url: https://cdn.modrinth.com/data/LBl4Qguc/versions/MoNv5bhj/capturexp-neoforge-1.7.1-1.3.0.jar
+    checksum: "sha256:b12a9fa30b39f1bf8af27fc657ce69be360303df294997d1c29f11d519f1d5a1"
+  - name: cloth-config-15.0.140-neoforge.jar
+    url: https://cdn.modrinth.com/data/9s6osm5g/versions/izKINKFg/cloth-config-15.0.140-neoforge.jar
+    checksum: "sha256:65e722e0d98431a07c45f8bdd8d529a217cc8c175fde1740248bd5c1b4f3c0d4"
+  - name: cobblemonraiddens-neoforge-0.5.1+1.21.1.jar
+    url: https://cdn.modrinth.com/data/GebWh45l/versions/1USFKVIh/cobblemonraiddens-neoforge-0.5.1%2B1.21.1.jar
+    checksum: "sha256:a73399f41ab3e60641bb78d85797982df988e12f981bb2bbc469148fcb890f21"
+  - name: cobblenav-neoforge-2.2.5.jar
+    url: https://cdn.modrinth.com/data/bI8Nt3uA/versions/owKhDJhF/cobblenav-neoforge-2.2.5.jar
+    checksum: "sha256:31d54d67e05fecf83d1cd4c12e91b131f5874f965e355c8272551185aa1cdd02"
+  - name: collective-1.21.1-8.13.jar
+    url: https://cdn.modrinth.com/data/e0M1UDsY/versions/VTg6femX/collective-1.21.1-8.13.jar
+    checksum: "sha256:d183b2e301c61c346a7b787beadbe880b92626e08d9ff11585e88fd00c67bf3f"
+  - name: comforts-neoforge-9.0.4+1.21.1.jar
+    url: https://cdn.modrinth.com/data/SaCpeal4/versions/f0FgfKAZ/comforts-neoforge-9.0.4%2B1.21.1.jar
+    checksum: "sha256:44bd6844dbba3a2e2d9b1e382e9ad7e00fc2956bb36e065d634c9ba0bfde0e9a"
+  - name: cupboard-1.21-2.9.jar
+    url: https://mediafilez.forgecdn.net/files/6078/150/cupboard-1.21-2.9.jar
+    checksum: "sha256:0d7093deae83d223674e3bf0fc37943658f3f028e655df6f9e25209c32f41668"
+  - name: curios-neoforge-9.5.1+1.21.1.jar
+    url: https://cdn.modrinth.com/data/vvuO3ImH/versions/yohfFbgD/curios-neoforge-9.5.1%2B1.21.1.jar
+    checksum: "sha256:a45df2125c26219974aba7507ffc9afe7b83acc941a386af3faacb1cc0056fde"
+  - name: deeper-oceans-2.0.0-neoforge-1.21.1.jar
+    url: https://cdn.modrinth.com/data/yqHsPROA/versions/jHxFj7QK/deeper-oceans-2.0.0-neoforge-1.21.1.jar
+    checksum: "sha256:626bb86683f96f98ef9d4a6d17e7e133a40458382c801b4b41c8d939ba73aa4b"
+  - name: deeperdarker-neoforge-1.21-1.3.4.jar
+    url: https://cdn.modrinth.com/data/fnAffV0n/versions/5FhUw189/deeperdarker-neoforge-1.21-1.3.4.jar
+    checksum: "sha256:86417e4cd33fe0d80381e3e231feb2e10b35887b67174bb207f76142c53b17e1"
+  - name: deimos-1.21.1-neoforge-2.5.jar
+    url: https://cdn.modrinth.com/data/WQaxNzFg/versions/iNBWHgNC/deimos-1.21.1-neoforge-2.5.jar
+    checksum: "sha256:cd06114decef19656a23750f5bcd19fdfea098cb05f96e349fd6a6056bb72245"
+  - name: doubledoors-1.21.1-7.2.jar
+    url: https://cdn.modrinth.com/data/JrvR9OHr/versions/KgGapm4H/doubledoors-1.21.1-7.2.jar
+    checksum: "sha256:947cc425dba61a003fc6cfc9ce6bb87dbef1f2d4561701235eb2fed6073b72ff"
+  - name: dungeons-and-taverns-v4.4.4.jar
+    url: https://cdn.modrinth.com/data/tpehi7ww/versions/BYUUUeZA/dungeons-and-taverns-v4.4.4.jar
+    checksum: "sha256:1db28e89e0cb76aebe9e40955d1866e8ac1779575d15c2a1e250ac804a762d05"
+  - name: entityculling-neoforge-1.9.4-mc1.21.1.jar
+    url: https://cdn.modrinth.com/data/NNAgCjsB/versions/p1xJ9gcC/entityculling-neoforge-1.9.4-mc1.21.1.jar
+    checksum: "sha256:c30406bd4b5aa7416f0889b69ffcd6cd4defed6ef2055254f8b5a9d1ae9ca223"
+  - name: fast-ip-ping-v1.0.8-mc1.21.1-neoforge.jar
+    url: https://cdn.modrinth.com/data/9mtu0sUO/versions/E7QL0wJ2/fast-ip-ping-v1.0.8-mc1.21.1-neoforge.jar
+    checksum: "sha256:a94b965f7bacea49d9a6253866801cc9073ca5d38e184c7695d82b6a2536b707"
+  - name: ferritecore-7.0.2-neoforge.jar
+    url: https://cdn.modrinth.com/data/uXXizFIs/versions/CnpoQxCx/ferritecore-7.0.2-neoforge.jar
+    checksum: "sha256:235e2081dfe050d7642b0d432a786668f079168505ba5d6bf0ec70c962a36539"
+  - name: fightorflight-neoforge-0.10.3.jar
+    url: https://cdn.modrinth.com/data/cTdIg5HZ/versions/cggdDVgO/fightorflight-neoforge-0.10.3.jar
+    checksum: "sha256:27908e6587a674f0d8bb55117aa238e80a15ba506bfb1b8efdc51d53e049d212"
+  - name: geckolib-neoforge-1.21.1-4.8.2.jar
+    url: https://cdn.modrinth.com/data/8BmcQJ2H/versions/RVIo5f6E/geckolib-neoforge-1.21.1-4.8.2.jar
+    checksum: "sha256:a733757157bd914b56a24c09d2797c522f0f339eb5e45ec1d70a8a9326ecd9df"
+  - name: gravestone-neoforge-1.21.1-1.0.35.jar
+    url: https://cdn.modrinth.com/data/RYtXKJPr/versions/AZm51eX1/gravestone-neoforge-1.21.1-1.0.35.jar
+    checksum: "sha256:86961d4c628344545492c0a4c45c92fd1ea9d8db6863174d0be49d9edccb23b1"
+  - name: inventoryessentials-neoforge-1.21.1-21.1.12.jar
+    url: https://cdn.modrinth.com/data/Boon8xwi/versions/wGMyQg0Q/inventoryessentials-neoforge-1.21.1-21.1.12.jar
+    checksum: "sha256:ef96505c2a8dc544175e677836253ce79ddb366dea0d919a2f54f358b20ffa90"
+  - name: iris-neoforge-1.8.12+mc1.21.1.jar
+    url: https://cdn.modrinth.com/data/YL57xq9U/versions/t3ruzodq/iris-neoforge-1.8.12%2Bmc1.21.1.jar
+    checksum: "sha256:3e3f94d2d5cdcb8145c4385d521974aa2d8669b2cc212351f70cf06488182e83"
+  - name: jei-1.21.1-neoforge-19.27.0.335.jar
+    url: https://cdn.modrinth.com/data/u6dRKJwZ/versions/FAXT7HOj/jei-1.21.1-neoforge-19.27.0.335.jar
+    checksum: "sha256:e28b15e1a806d2dc5d267f7662f335c508054ed610fe2766ffb09f27ea463fba"
+  - name: jumpoverfences-neoforge-1.21.1-1.6.1.jar
+    url: https://cdn.modrinth.com/data/4HeIHvIP/versions/g065XzyS/jumpoverfences-neoforge-1.21.1-1.6.1.jar
+    checksum: "sha256:a3d840a5bbc5dc117d991b929962d78ae1ad0ac427cf4c7f5ca9de33bea854cf"
+  - name: kotlinforforge-5.10.0-all.jar
+    url: https://cdn.modrinth.com/data/ordsPcFz/versions/pp2cY80Q/kotlinforforge-5.10.0-all.jar
+    checksum: "sha256:3f6e1d0e34c86e62abce3a9f86764a6861a2101aaa8858ada9d81f4588336efe"
+  - name: libIPN-neoforge-1.21.1-6.6.2.jar
+    url: https://cdn.modrinth.com/data/onSQdWhM/versions/teCQx11p/libIPN-neoforge-1.21.1-6.6.2.jar
+    checksum: "sha256:5c9e1b083440fd1b26d0c7bc5484468dd40df985efcab04aaa2f2c88966479d4"
+  - name: libraryferret-neoforge-1.21.1-4.0.0.jar
+    url: https://cdn.modrinth.com/data/DOB2l4oJ/versions/AKcIMUil/libraryferret-neoforge-1.21.1-4.0.0.jar
+    checksum: "sha256:fcc7cbe7ec7d2e5bce6a9d24c14d94bc27a577c293311077476e5f43937be1a2"
+  - name: lithostitched-1.5.4-neoforge-1.21.1.jar
+    url: https://cdn.modrinth.com/data/XaDC71GB/versions/8FDhXGkE/lithostitched-1.5.4-neoforge-1.21.1.jar
+    checksum: "sha256:59d76aade4dd4f7f8c3f56e00a09d57f06999c3cbab80358465197e9a8b564e8"
+  - name: lootr-neoforge-1.21.1-1.11.36.103.jar
+    url: https://cdn.modrinth.com/data/EltpO5cN/versions/fUSRtkyb/lootr-neoforge-1.21.1-1.11.36.103.jar
+    checksum: "sha256:8307f0c07976b5d248b8fa1ed7233be284c85f2bb1473186d362582c1bffe46a"
+  - name: mcw-bridges-3.1.1-mc1.21.1neoforge.jar
+    url: https://cdn.modrinth.com/data/GURcjz8O/versions/4AUDy7dQ/mcw-bridges-3.1.1-mc1.21.1neoforge.jar
+    checksum: "sha256:9a140c6a1014f1f80b887fc629a4e1ef9ff3036b07a27803dcf44d32dd543b91"
+  - name: mcw-mcwfences-1.2.1-mc1.21.1neoforge.jar
+    url: https://cdn.modrinth.com/data/GmwLse2I/versions/jVdb0r4W/mcw-mcwfences-1.2.1-mc1.21.1neoforge.jar
+    checksum: "sha256:e4b0e5a5b67decc2285e71f017fb4f60284796fa0838de3edeaf6b7cb0395735"
+  - name: mcw-mcwwindows-2.4.2-mc1.21.1neoforge.jar
+    url: https://cdn.modrinth.com/data/C7I0BCni/versions/rQUE4LCz/mcw-mcwwindows-2.4.2-mc1.21.1neoforge.jar
+    checksum: "sha256:8970c40ec622edd34c9b055226b403af08ab441c77303a6dc625ae18005f8184"
+  - name: mega_showdown-neoforge-1.4.4+1.7.1+1.21.1.jar
+    url: https://cdn.modrinth.com/data/SszvX85I/versions/lCpktv9Z/mega_showdown-neoforge-1.4.4%2B1.7.1%2B1.21.1.jar
+    checksum: "sha256:fda3e026e6b8759a56cf543f7dd9ecd8d28e26fffd9507f05f25f8785999a902"
+  - name: modernfix-neoforge-5.25.1+mc1.21.1.jar
+    url: https://cdn.modrinth.com/data/nmDcB62a/versions/8Be8uJW6/modernfix-neoforge-5.25.1%2Bmc1.21.1.jar
+    checksum: "sha256:2dbcf6cd837fca938323dd55114e6c515a4bb1b644a746aad504dd8d43bb0b6d"
+  - name: owo-lib-neoforge-0.12.15.5-beta.1+1.21.jar
+    url: https://cdn.modrinth.com/data/ccKDOlHs/versions/NMCHU6DZ/owo-lib-neoforge-0.12.15.5-beta.1%2B1.21.jar
+    checksum: "sha256:de6ed336bd80154b7241a7b3276694befc1c94550add8bcdfe7f82e5172fd13d"
+  - name: playerxp-neoforge-1.0.3+1.21.1.jar
+    url: https://cdn.modrinth.com/data/zlrbPCvu/versions/9HQFzzCi/playerxp-neoforge-1.0.3%2B1.21.1.jar
+    checksum: "sha256:f89949dbd022818fcd189632effc5acaee4b70d82faf19cf93b51bb19647850d"
+  - name: rctapi-neoforge-1.21.1-0.14.4-beta.jar
+    url: https://cdn.modrinth.com/data/CBfM2yw7/versions/s2EhETsB/rctapi-neoforge-1.21.1-0.14.4-beta.jar
+    checksum: "sha256:030d3b3b3cf6655dcae5885158c4fb356e0bb11aa2b1d9d17deda4e8533e53aa"
+  - name: rctmod-neoforge-1.21.1-0.17.4-beta.jar
+    url: https://cdn.modrinth.com/data/lRwTUnD7/versions/62LcpnUU/rctmod-neoforge-1.21.1-0.17.4-beta.jar
+    checksum: "sha256:5af54f03ad8b3b42634ee972f59ddc92cdb0252b6bd0d6953875805d49b12e66"
+  - name: serversidehorror-1.21.1-neoforge-4.jar
+    url: https://cdn.modrinth.com/data/RJ4U0qmn/versions/OxQ6JZ21/serversidehorror-1.21.1-neoforge-4.jar
+    checksum: "sha256:579ebe7483d6b83f1cdd9a8fc00ebc7f04a8c0cee280ffab9ffcb55f58b7b2bc"
+  - name: sodium-neoforge-0.6.13+mc1.21.1.jar
+    url: https://cdn.modrinth.com/data/AANobbMI/versions/Pb3OXVqC/sodium-neoforge-0.6.13%2Bmc1.21.1.jar
+    checksum: "sha256:7acd7af2ef75ec883a6872c17494ead65e38025151eb08a1d60e36d34377f403"
+  - name: sophisticatedcore-1.21.1-1.3.97.1322.jar
+    url: https://cdn.modrinth.com/data/nmoqTijg/versions/l3BffnGK/sophisticatedcore-1.21.1-1.3.97.1322.jar
+    checksum: "sha256:acdc45c290b9ed7f9dc670506ac63f4b15bfdc58065a00c941238aa128df8b7c"
+  - name: tidal-towns-1.3.4.jar
+    url: https://cdn.modrinth.com/data/EEIwvQVo/versions/xWUN0cml/tidal-towns-1.3.4.jar
+    checksum: "sha256:691dc0d8ad68bc5f02d14221687286e496e5ee41314c1f282a2d51e927d0d5e7"
+  - name: timcore-neoforge-1.7.1-1.27.0.jar
+    url: https://cdn.modrinth.com/data/lVP9aUaY/versions/VIYK3fzV/timcore-neoforge-1.7.1-1.27.0.jar
+    checksum: "sha256:b78ccbec87f3c08d4fbfecf6cf437dfac4495e4647f2873c45818e8ffae31c6a"
+  - name: travelersbackpack-neoforge-1.21.1-10.1.29.jar
+    url: https://cdn.modrinth.com/data/rlloIFEV/versions/Mf1VMgxK/travelersbackpack-neoforge-1.21.1-10.1.29.jar
+    checksum: "sha256:5d0bdde78ba77a74c6b7054d7f9e1bc146827326ab5a919206de83523de6fe9b"
+  - name: u_sea-1.2.4+mc1.19-1.21.10.jar
+    url: https://cdn.modrinth.com/data/2a8fg8M6/versions/XKNQ1FOc/u_sea-1.2.4%2Bmc1.19-1.21.10.jar
+    checksum: "sha256:4a0b6de7ad77ab61462e677ec6ddf30b40db38e9a07ae0480e2e52d90daa038d"
+  - name: waystones-neoforge-1.21.1-21.1.25.jar
+    url: https://cdn.modrinth.com/data/LOpKHB2A/versions/f4A1aY3t/waystones-neoforge-1.21.1-21.1.25.jar
+    checksum: "sha256:45533f2fae2991e7b86c02f512e07b0a7c0abcf17ecd54de87e1e5b8b9353e3b"
 minecraft_mods_install_dir: "{{ minecraft_base_dir }}/tabitv2/mods"
 
 # Prometheus Node Exporter (beaprom user)
@@ -56,7 +303,7 @@ prometheus_port: 55502
 prometheus_version: "3.8.1"
 
 # Grafana
-grafana_domain: "grafana.tabitv2.com"
+grafana_domain: "grafana.{{ domain }}"
 grafana_http_port: 55503
 grafana_root_url: "https://{{ grafana_domain }}"
 

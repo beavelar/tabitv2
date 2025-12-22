@@ -41,6 +41,7 @@
     - "{{ minecraft_base_dir }}/installs/mods"
     - "{{ minecraft_base_dir }}/installs/neoforge"
     - "{{ minecraft_base_dir }}/{{ minecraft_server_name }}"
+    - "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods"
 - name: Download NeoForge installer
   ansible.builtin.get_url:
     dest: "{{ minecraft_base_dir }}/installs/neoforge/{{ neoforge_installer_name }}"
@@ -96,35 +97,28 @@
     mode: "0644"
     owner: beamc
     src: server.properties.j2
-# - name: Copy Minecraft mods archive to installs directory
-#   ansible.builtin.copy:
-#     dest: "{{ minecraft_base_dir }}/installs/mods/mods.tar.gz"
-#     group: beamc
-#     mode: "0644"
-#     owner: beamc
-#     src: "{{ minecraft_mods_archive_local_path }}"
-# - name: Copy mods archive to server directory
-#   ansible.builtin.copy:
-#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods/mods.tar.gz"
-#     group: beamc
-#     mode: "0644"
-#     owner: beamc
-#     remote_src: "yes"
-#     src: "{{ minecraft_base_dir }}/installs/mods/mods.tar.gz"
-# - name: Untar mods archive
-#   ansible.builtin.unarchive:
-#     creates: >-
-#       {{ minecraft_base_dir }}/{{ minecraft_server_name
-#       }}/mods/some_mod_file_to_check_for_idempotence
-#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods"
-#     group: beamc
-#     owner: beamc
-#     remote_src: "yes"
-#     src: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods/mods.tar.gz"
-# - name: Remove mods archive after extraction
-#   ansible.builtin.file:
-#     path: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods/mods.tar.gz"
-#     state: absent
+- name: Download and verify Minecraft mods
+  ansible.builtin.get_url:
+    checksum: "{{ item.checksum | default(omit) }}"
+    dest: "{{ minecraft_base_dir }}/installs/mods/{{ item.name }}"
+    group: beamc
+    mode: "0644"
+    owner: beamc
+    url: "{{ item.url }}"
+  loop: "{{ minecraft_mods }}"
+  loop_control:
+    label: Downloading {{ item.name }}
+- name: Copy downloaded mods to server mods directory
+  ansible.builtin.copy:
+    dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods/{{ item.name }}"
+    group: beamc
+    mode: "0644"
+    owner: beamc
+    remote_src: "yes"
+    src: "{{ minecraft_base_dir }}/installs/mods/{{ item.name }}"
+  loop: "{{ minecraft_mods }}"
+  loop_control:
+    label: Copying {{ item.name }}
 - name: Create systemd user service directory
   ansible.builtin.file:
     group: beamc
