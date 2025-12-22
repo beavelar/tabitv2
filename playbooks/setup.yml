@@ -43,9 +43,9 @@
     - role: prometheus
       become_user: beaprom
     - role: grafana
+    - role: nginx
     # - role: certbot
     # - role: fail2ban
-    # - role: nginx
   vars_files:
     - ../group_vars/all.yml
     - ../group_vars/vault.yml

@@ -1,1 +1,33 @@
 ---
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+- name: Create nginx site configuration file
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: "/etc/nginx/sites-available/{{ grafana_domain }}"
+    owner: root
+    group: root
+    mode: "0644"
+- name: Enable nginx site by creating a symlink
+  ansible.builtin.file:
+    src: "/etc/nginx/sites-available/{{ grafana_domain }}"
+    dest: "/etc/nginx/sites-enabled/{{ grafana_domain }}"
+    state: link
+    force: true
+- name: Remove default nginx site
+  ansible.builtin.file:
+    path: "/etc/nginx/sites-enabled/default"
+    state: absent
+- name: Test nginx configuration
+  ansible.builtin.command: nginx -t
+  register: nginx_test_result
+  changed_when: false
+  failed_when: nginx_test_result.rc != 0
+- name: Restart nginx service
+  ansible.builtin.systemd_service:
+    enabled: "yes"
+    name: "nginx.service"
+    state: restarted
