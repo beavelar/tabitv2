@@ -64,11 +64,11 @@
     enabled: "yes"
     name: grafana-server
     state: restarted
-# - name: Verify Grafana endpoint
-#   ansible.builtin.uri:
-#     method: GET
-#     status_code: 302
-#     url: http://localhost:{{ grafana_http_port }}
-#   become: "yes"
-#   delay: 10
-#   retries: 5
+- name: Verify Grafana endpoint
+  ansible.builtin.uri:
+    method: GET
+    status_code: 200
+    url: http://localhost:{{ grafana_http_port }}
+  become: "yes"
+  delay: 10
+  retries: 5
