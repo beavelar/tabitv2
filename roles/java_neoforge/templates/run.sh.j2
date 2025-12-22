@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Ensure JAVA_HOME is set for this script
+export JAVA_HOME="{{ java_install_dir }}/{{ java_extracted_dir }}"
+
+# Check if a specific Java command is needed, otherwise use JAVA_HOME
+if [ -x "$JAVA_HOME/bin/java" ]; then
+    JAVA_COMMAND="$JAVA_HOME/bin/java"
+else
+    JAVA_COMMAND="java"
+fi
+
+# Load JVM arguments from user_jvm_args.txt
+JVM_ARGS=$(<user_jvm_args.txt)
+
+# Find the server JAR (typically a forge/neoforge universal or server jar)
+SERVER_JAR=$(ls -1 | grep 'forge' | grep '\.jar$' | head -n 1)
+
+if [ -z "$SERVER_JAR" ]; then
+  SERVER_JAR=$(ls -1 | grep 'neoforge' | grep '\.jar$' | head -n 1)
+fi
+
+if [ -z "$SERVER_JAR" ]; then
+    echo "Could not find a server JAR file (forge-*.jar or neoforge-*.jar). Exiting."
+    exit 1
+fi
+
+echo "Starting server with {{ SERVER_JAR }}..."
+$JAVA_COMMAND $JVM_ARGS @libraries/net/neoforged/neoforge/{{ neoforge_version }}/unix_args.txt "$@"

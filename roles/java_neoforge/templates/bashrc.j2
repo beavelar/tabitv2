@@ -1,0 +1,12 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific aliases and functions
+
+# Java JDK
+export JAVA_HOME={{ java_install_dir }}/{{ java_extracted_dir }}
+export PATH=$PATH:{{ java_install_dir }}/{{ java_extracted_dir }}/bin

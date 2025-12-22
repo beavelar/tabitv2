@@ -1,0 +1,139 @@
+---
+- name: Create Java install directory
+  ansible.builtin.file:
+    group: beamc
+    mode: "0755"
+    owner: beamc
+    path: "{{ java_install_dir }}"
+    state: directory
+- name: Download Java JDK
+  ansible.builtin.get_url:
+    dest: "{{ java_install_dir }}/{{ java_archive_name }}"
+    group: beamc
+    mode: "0644"
+    owner: beamc
+    url: "{{ java_download_url }}"
+- name: Extract Java JDK
+  ansible.builtin.unarchive:
+    dest: "{{ java_install_dir }}"
+    group: beamc
+    owner: beamc
+    remote_src: "yes"
+    src: "{{ java_install_dir }}/{{ java_archive_name }}"
+# - name: Add Java JDK to beamc's .bashrc
+#   ansible.builtin.template:
+#     dest: /home/beamc/.bashrc
+#     group: beamc
+#     mode: "0644"
+#     owner: beamc
+#     src: bashrc.j2
+# - name: Create Minecraft base directories
+#   ansible.builtin.file:
+#     group: beamc
+#     mode: "0755"
+#     owner: beamc
+#     path: "{{ item }}"
+#     state: directory
+#   loop:
+#     - "{{ minecraft_base_dir }}/installs/mods"
+#     - "{{ minecraft_base_dir }}/installs/neoforge"
+#     - "{{ minecraft_base_dir }}/{{ minecraft_server_name }}"
+# - name: Download NeoForge installer
+#   ansible.builtin.get_url:
+#     dest: "{{ minecraft_base_dir }}/installs/neoforge/{{ neoforge_installer_name }}"
+#     group: beamc
+#     mode: "0644"
+#     owner: beamc
+#     url: "{{ neoforge_download_url }}"
+# - name: Copy NeoForge installer to server directory
+#   ansible.builtin.copy:
+#     dest: >-
+#       {{ minecraft_base_dir }}/{{ minecraft_server_name }}/{{
+#       neoforge_installer_name }}
+#     group: beamc
+#     mode: "0644"
+#     owner: beamc
+#     remote_src: "yes"
+#     src: "{{ minecraft_base_dir }}/installs/neoforge/{{ neoforge_installer_name }}"
+# - name: Run NeoForge installer
+#   ansible.builtin.command: java -jar {{ neoforge_installer_name }} --installServer
+#   args:
+#     chdir: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}"
+#   changed_when: >-
+#     neoforge_install_result.rc == 0 and 'Extracting server files' in
+#     neoforge_install_result.stdout
+#   register: neoforge_install_result
+# - name: Accept Minecraft EULA
+#   ansible.builtin.lineinfile:
+#     group: beamc
+#     line: eula=true
+#     mode: "0644"
+#     owner: beamc
+#     path: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/eula.txt"
+#     regexp: ^eula=
+# - name: Update run.sh script
+#   ansible.builtin.template:
+#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/run.sh"
+#     group: beamc
+#     mode: "0755"
+#     owner: beamc
+#     src: run.sh.j2
+# - name: Update user_jvm_args.txt
+#   ansible.builtin.template:
+#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/user_jvm_args.txt"
+#     group: beamc
+#     mode: "0644"
+#     owner: beamc
+#     src: user_jvm_args.txt.j2
+# - name: Configure server.properties
+#   ansible.builtin.template:
+#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/server.properties"
+#     group: beamc
+#     mode: "0644"
+#     owner: beamc
+#     src: server.properties.j2
+# - name: Copy Minecraft mods archive to installs directory
+#   ansible.builtin.copy:
+#     dest: "{{ minecraft_base_dir }}/installs/mods/mods.tar.gz"
+#     group: beamc
+#     mode: "0644"
+#     owner: beamc
+#     src: "{{ minecraft_mods_archive_local_path }}"
+# - name: Copy mods archive to server directory
+#   ansible.builtin.copy:
+#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods/mods.tar.gz"
+#     group: beamc
+#     mode: "0644"
+#     owner: beamc
+#     remote_src: "yes"
+#     src: "{{ minecraft_base_dir }}/installs/mods/mods.tar.gz"
+# - name: Untar mods archive
+#   ansible.builtin.unarchive:
+#     creates: >-
+#       {{ minecraft_base_dir }}/{{ minecraft_server_name
+#       }}/mods/some_mod_file_to_check_for_idempotence
+#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods"
+#     group: beamc
+#     owner: beamc
+#     remote_src: "yes"
+#     src: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods/mods.tar.gz"
+# - name: Remove mods archive after extraction
+#   ansible.builtin.file:
+#     path: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods/mods.tar.gz"
+#     state: absent
+# - name: Create Minecraft service file
+#   ansible.builtin.template:
+#     dest: /home/beamc/.config/systemd/user/{{ minecraft_server_name }}.service
+#     group: beamc
+#     mode: "0644"
+#     owner: beamc
+#     src: minecraft.service.j2
+# - name: Reload systemd daemon for user services
+#   ansible.builtin.command: systemctl --user daemon-reload
+#   changed_when: false
+# - name: Enable and start Minecraft service
+#   ansible.builtin.systemd_service:
+#     enabled: "yes"
+#     name: "{{ minecraft_server_name }}.service"
+#     scope: user
+#     state: started

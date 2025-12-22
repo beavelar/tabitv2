@@ -28,8 +28,8 @@
   roles:
     - role: ufw
     - role: service_accounts
-    # - role: java_neoforge
-    #   become_user: beamc
+    - role: java_neoforge
+      become_user: beamc
     # - role: monitoring_node_exporter
     #   become_user: beaprom
     # - role: monitoring_mc_exporter
@@ -37,9 +37,9 @@
     # - role: monitoring_prometheus
     #   become_user: beaprom
     # - role: grafana
-    # - role: nginx_certbot
+    # - role: certbot
     # - role: fail2ban
-    # - role: nginx_hardening
+    # - role: nginx
   vars_files:
     - ../group_vars/all.yml
     - ../group_vars/vault.yml
