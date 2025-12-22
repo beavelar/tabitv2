@@ -591,7 +591,7 @@ Extra setup step not needs to get the Minecraft server running but would be nice
 
 ### Installing and Configuring Grafana
 
-- In the beamc account, install packages and configure keyring
+- In the beamcs account, install packages and configure keyring
 
   ```bash
   sudo apt install -y apt-transport-https software-properties-common wget
