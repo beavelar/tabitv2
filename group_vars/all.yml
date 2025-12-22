@@ -44,7 +44,7 @@ mc_prom_exporter_download_url: "https://github.com/cpburnz/minecraft-prometheus-
 mc_prom_exporter_install_dir: "{{ minecraft_base_dir }}/installs/prometheus_exporter"
 mc_prom_exporter_jar_name: "Prometheus-Exporter-{{ mc_prom_exporter_version }}.jar"
 mc_prom_exporter_port: 55501
-mc_prom_exporter_version: "1.21.8-neoforge-1.2.1"
+mc_prom_exporter_version: "1.21.1-neoforge-1.2.1"
 
 # Prometheus Server (beaprom user)
 prometheus_archive_name: "prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"

@@ -1,3 +1,4 @@
+---
 - name: Create Node Exporter install directory
   ansible.builtin.file:
     group: beaprom
@@ -49,3 +50,5 @@
     status_code: 200
     url: http://localhost:{{ node_exporter_port }}/metrics
   become: "yes"
+  delay: 5
+  retries: 5

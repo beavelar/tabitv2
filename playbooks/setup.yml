@@ -38,8 +38,8 @@
       become_user: beamc
     - role: node_exporter
       become_user: beaprom
-    # - role: minecraft_exporter
-    #   become_user: beamc
+    - role: minecraft_exporter
+      become_user: beamc
     # - role: prometheus
     #   become_user: beaprom
     # - role: grafana

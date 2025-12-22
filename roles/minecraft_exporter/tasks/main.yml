@@ -1,0 +1,51 @@
+---
+- name: Create Minecraft Prometheus Exporter install directory
+  ansible.builtin.file:
+    group: beamc
+    mode: "0755"
+    owner: beamc
+    path: "{{ mc_prom_exporter_install_dir }}"
+    state: directory
+- name: Download Minecraft Prometheus Exporter
+  ansible.builtin.get_url:
+    dest: "{{ mc_prom_exporter_install_dir }}/{{ mc_prom_exporter_jar_name }}"
+    group: beamc
+    mode: "0644"
+    owner: beamc
+    url: "{{ mc_prom_exporter_download_url }}"
+- name: Copy Minecraft Prometheus Exporter to mods directory
+  ansible.builtin.copy:
+    dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods"
+    group: beamc
+    mode: "0644"
+    owner: beamc
+    remote_src: "yes"
+    src: "{{ mc_prom_exporter_install_dir }}/{{ mc_prom_exporter_jar_name }}"
+- name: Restart Minecraft service
+  ansible.builtin.systemd_service:
+    enabled: "yes"
+    name: "{{ minecraft_server_name }}.service"
+    scope: user
+    state: restarted
+- name: Pause for 15 seconds
+  ansible.builtin.pause:
+    seconds: 15
+- name: Replace listen_port value in the file
+  ansible.builtin.replace:
+    path: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/config/prometheus_exporter-server.toml"
+    regexp: '^(\s*listen_port\s*=\s*)\d+$'
+    replace: '\g<1>{{ mc_prom_exporter_port }}'
+- name: Restart Minecraft service
+  ansible.builtin.systemd_service:
+    enabled: "yes"
+    name: "{{ minecraft_server_name }}.service"
+    scope: user
+    state: restarted
+- name: Verify Minecraft Prometheus Exporter endpoint
+  ansible.builtin.uri:
+    method: GET
+    status_code: 200
+    url: http://localhost:{{ mc_prom_exporter_port }}/metrics
+  become: "yes"
+  delay: 5
+  retries: 5
