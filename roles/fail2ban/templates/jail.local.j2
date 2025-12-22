@@ -1,0 +1,61 @@
+[DEFAULT]
+# Ban hosts for 1 hour
+bantime = 1h
+
+# A host is banned if it makes maxretry attempts in findtime seconds.
+findtime = 10m
+
+# Number of attempts before a ban
+maxretry = 5
+
+# Your server's public IP addresses or local IP ranges that should never be banned
+# Space-separated values.
+ignoreip = 127.0.0.1/8 ::1
+
+# Email address to send notifications
+# destemail = your_email@example.com
+
+# Action to take (e.g., ufw, iptables)
+# 'ufw' is good for Ubuntu systems using UFW
+banaction = ufw
+
+[nginx-bad-request]
+enabled = true
+
+port = http,https
+
+filter = nginx-bad-request
+
+logpath = /var/log/nginx/access.log
+
+backend = auto
+
+maxretry = 6
+
+findtime = 600
+
+bantime = 3600
+
+[nginx-limit-req]
+enabled = true
+
+port = http,https
+
+filter = nginx-limit-req
+
+logpath = /var/log/nginx/error.log
+
+maxretry = 2
+
+findtime = 60
+
+bantime = 3600
+
+[sshd]
+enabled = true
+
+port = {{ ssh_port }}
+
+logpath = /var/log/auth.log
+
+backend = system

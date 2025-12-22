@@ -45,7 +45,7 @@
     - role: grafana
     - role: nginx
     - role: certbot
-    # - role: fail2ban
+    - role: fail2ban
   vars_files:
     - ../group_vars/all.yml
     - ../group_vars/vault.yml
