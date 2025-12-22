@@ -221,7 +221,6 @@ The minimum setup to get a Minecraft server running. This will not include extra
 
   ```
   # Java JDK
-
   export JAVA_HOME=~/installs/java/jdk-21.0.9+10
   export PATH=$PATH:~/installs/java/jdk-21.0.9+10/bin
   ```
