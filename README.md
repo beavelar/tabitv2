@@ -5,7 +5,6 @@ Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setu
 ## Prerequisites
 
 - [`Ansible`](https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html)
-- [`Python`](https://www.python.org/downloads/)
 
 ## Setup
 
