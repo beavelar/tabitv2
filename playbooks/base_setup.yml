@@ -1,0 +1,21 @@
+---
+- name: Initial Minecraft Server Setup
+  become: yes
+  hosts: minecraft_servers_root
+  pre_tasks:
+    - name: Ensure Python 3 is available
+      ansible.builtin.raw: test -e /usr/bin/python3 || (apt update && apt install -y python3)
+      changed_when: false
+      failed_when: false
+      when: ansible_python_interpreter is not defined or ansible_python_interpreter | basename != 'python3'
+    - name: Ensure python3-apt is installed for apt module
+      ansible.builtin.apt:
+        name: python3-apt
+        state: present
+        update_cache: yes
+      when: ansible_facts.distribution == 'Ubuntu' or ansible_facts.distribution == 'Debian'
+  roles:
+    - role: base_setup
+  vars_files:
+    - group_vars/all.yml
+    - group_vars/vault.yml

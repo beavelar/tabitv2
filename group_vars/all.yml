@@ -1,0 +1,144 @@
+# General System Settings
+ssh_port: 1738
+
+# User IDs and Groups
+beamc_uid: 1738
+beamc_gid: 1738
+beamcs_uid: 8371
+beamcs_gid: 8371
+beaprom_uid: 6251
+beaprom_gid: 6251
+
+# SSH Key Paths (Local paths)
+beamc_pubkey_path: "~/.ssh/id_ed25519_linodemc_beamc.pub"
+beamcs_pubkey_path: "~/.ssh/id_ed25519_linodemc_beamcs.pub"
+beaprom_pubkey_path: "~/.ssh/id_ed25519_linodemc_beaprom.pub"
+
+# Java Configuration (beamc user)
+java_archive_name: "OpenJDK21U-jdk_x64_linux_hotspot_21.0.9_10.tar.gz"
+java_download_url: "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.9%252B10/OpenJDK21U-jdk_x64_linux_hotspot_21.0.9_10.tar.gz"
+java_extracted_dir: "jdk-21.0.9+10"
+java_install_dir: "/home/beamc/installs/java"
+java_version: "jdk-21.0.9+10"
+
+# NeoForge Configuration (beamc user)
+minecraft_base_dir: "/home/beamc/minecraft"
+minecraft_server_name: "tabitv2"
+neoforge_download_url: "https://maven.neoforged.net/releases/net/neoforged/neoforge/{{ neoforge_version }}/neoforge-{{ neoforge_version }}-installer.jar"
+neoforge_installer_name: "neoforge-{{ neoforge_version }}-installer.jar"
+neoforge_version: "21.1.216"
+
+# Minecraft Server JVM Args
+minecraft_jvm_args: "-Xms10G -Xmx10G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true"
+
+# Minecraft Server Properties (server.properties)
+minecraft_server_properties:
+  accepts-transfers: "false"
+  allow-flight: "false"
+  allow-nether: "true"
+  broadcast-console-to-ops: "true"
+  broadcast-rcon-to-ops: "true"
+  bug-report-link: ""
+  difficulty: "normal"
+  enable-command-block: "true"
+  enable-jmx-monitoring: "false"
+  enable-query: "false"
+  enable-rcon: "false"
+  enable-status: "true"
+  enforce-secure-profile: "true"
+  enforce-whitelist: "true"
+  entity-broadcast-range-percentage: "100"
+  force-gamemode: "true"
+  function-permission-level: "2"
+  gamemode: "survival"
+  generate-structures: "true"
+  generator-settings: "{}"
+  hardcore: "false"
+  hide-online-players: "false"
+  initial-disabled-packs: ""
+  initial-enabled-packs: "vanilla"
+  level-name: "{{ minecraft_server_name }}"
+  level-seed: "-8021755361276700313"
+  level-type: "minecraft:normal"
+  log-ips: "true"
+  max-chained-neighbor-updates: "1000000"
+  max-players: "10"
+  max-tick-time: "60000"
+  max-world-size: "29999984"
+  motd: "<3"
+  network-compression-threshold: "256"
+  online-mode: "true"
+  op-permission-level: "4"
+  player-idle-timeout: "30"
+  prevent-proxy-connections: "false"
+  pvp: "true"
+  query.port: "25565"
+  rate-limit: "0"
+  rcon.password: ""
+  rcon.port: "25575"
+  region-file-compression: "deflate"
+  require-resource-pack: "false"
+  resource-pack: ""
+  resource-pack-id: ""
+  resource-pack-prompt: ""
+  resource-pack-sha1: ""
+  server-ip: ""
+  server-port: "25565"
+  simulation-distance: "8"
+  spawn-animals: "true"
+  spawn-monsters: "true"
+  spawn-npcs: "true"
+  spawn-protection: "0"
+  sync-chunk-writes: "true"
+  text-filtering-config: ""
+  use-native-transport: "true"
+  view-distance: "8"
+  white-list: "true"
+
+# Minecraft Mods (beamc user)
+minecraft_mods_archive_local_path: "./mods.tar.gz" # Path on your Ansible control machine
+minecraft_mods_install_dir: "{{ minecraft_base_dir }}/tabitv2/mods"
+
+# Prometheus Node Exporter (beaprom user)
+node_exporter_download_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
+node_exporter_extracted_dir: "node_exporter-{{ node_exporter_version }}.linux-amd64"
+node_exporter_install_dir: "/home/beaprom/installs/node_exporter"
+node_exporter_port: 55500
+node_exporter_version: "1.10.2"
+
+# Minecraft Prometheus Exporter (beamc user)
+mc_prom_exporter_download_url: "https://github.com/cpburnz/minecraft-prometheus-exporter/releases/download/{{ mc_prom_exporter_version }}/Prometheus-Exporter-{{ mc_prom_exporter_version }}.jar"
+mc_prom_exporter_install_dir: "{{ minecraft_base_dir }}/installs/prometheus_exporter"
+mc_prom_exporter_jar_name: "Prometheus-Exporter-{{ mc_prom_exporter_version }}.jar"
+mc_prom_exporter_port: 55501
+mc_prom_exporter_version: "1.21.8-neoforge-1.2.1"
+
+# Prometheus Server (beaprom user)
+prometheus_archive_name: "prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+prometheus_data_dir: "/home/beaprom/installs/prometheus/prometheus_data"
+prometheus_download_url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+prometheus_extracted_dir: "prometheus-{{ prometheus_version }}.linux-amd64"
+prometheus_install_dir: "/home/beaprom/installs/prometheus"
+prometheus_port: 55502
+prometheus_version: "3.8.1"
+
+# Grafana
+grafana_domain: "grafana.tabitv2.com"
+grafana_http_port: 55503
+grafana_root_url: "https://{{ grafana_domain }}"
+
+# Nginx
+nginx_grafana_conf_path: "/etc/nginx/sites-available/{{ grafana_domain }}"
+nginx_grafana_symlink_path: "/etc/nginx/sites-enabled/{{ grafana_domain }}"
+
+# Certbot
+# TODO: Uncomment and set email to receive certbot renewal notifications
+# certbot_email: "your-email@example.com"
+
+# Fail2ban
+fail2ban_bantime: "1h"
+# TODO: Uncomment and set email to receive fail2ban notifications
+# fail2ban_destemail: "your_fail2ban_notifications@example.com"
+fail2ban_findtime: "10m"
+fail2ban_ignoreip: "127.0.0.1/8 ::1"
+fail2ban_maxretry: 5

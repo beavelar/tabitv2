@@ -1,0 +1,56 @@
+---
+- name: Update and upgrade apt packages
+  ansible.builtin.apt:
+    update_cache: "yes"
+    upgrade: dist
+- name: Create 'beamcs' group
+  ansible.builtin.group:
+    gid: "{{ beamcs_gid }}"
+    name: beamcs
+    state: present
+- name: Create 'beamcs' user
+  ansible.builtin.user:
+    create_home: "yes"
+    group: beamcs
+    groups: sudo
+    name: beamcs
+    password: "{{ beamc_password | password_hash('sha512') }}"
+    shell: /bin/bash
+    state: present
+    uid: "{{ beamcs_uid }}"
+- name: Ensure beamcs's .ssh directory exists and has correct permissions
+  ansible.builtin.file:
+    group: beamcs
+    mode: "0700"
+    owner: beamcs
+    path: /home/beamcs/.ssh
+    state: directory
+- name: Copy beamcs's public key to authorized_keys
+  ansible.builtin.authorized_key:
+    key: "{{ lookup('file', beamcs_pubkey_path) }}"
+    state: present
+    user: beamcs
+# - name: Set PubkeyAuthentication to yes
+#   ansible.builtin.lineinfile:
+#     line: PubkeyAuthentication yes
+#     path: /etc/ssh/sshd_config
+#     regexp: "^#?PubkeyAuthentication "
+#     state: present
+#   notify: Restart sshd
+# - name: Set SSH port in sshd_config
+#   ansible.builtin.lineinfile:
+#     line: Port {{ ssh_port }}
+#     path: /etc/ssh/sshd_config
+#     regexp: "^#?Port "
+#     state: present
+#   notify: Restart sshd
+# - name: Disable PermitRootLogin in sshd_config
+#   ansible.builtin.lineinfile:
+#     line: PermitRootLogin no
+#     path: /etc/ssh/sshd_config
+#     regexp: "^#?PermitRootLogin "
+#     state: present
+#   notify: Restart sshd
+# - name: Lock the root account
+#   ansible.builtin.command: passwd -l root
+#   changed_when: false
