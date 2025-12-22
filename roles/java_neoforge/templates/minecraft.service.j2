@@ -6,9 +6,6 @@ Description={{ minecraft_server_name }} Minecraft Server
 ExecStart={{ minecraft_base_dir }}/{{ minecraft_server_name }}/run.sh
 Restart=always
 WorkingDirectory={{ minecraft_base_dir }}/{{ minecraft_server_name }}/
-User=beamc
-Group=beamc
-Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" # Ensure basic path for commands
 
 [Install]
 WantedBy=default.target

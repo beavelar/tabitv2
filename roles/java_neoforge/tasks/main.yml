@@ -59,7 +59,7 @@
     remote_src: "yes"
     src: "{{ minecraft_base_dir }}/installs/neoforge/{{ neoforge_installer_name }}"
 - name: Run NeoForge installer
-  ansible.builtin.command: java -jar {{ neoforge_installer_name }} --installServer
+  ansible.builtin.command: "{{ java_install_dir }}/{{ java_extracted_dir }}/bin/java -jar {{ neoforge_installer_name }} --installServer"
   args:
     chdir: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}"
   changed_when: >-
@@ -68,33 +68,34 @@
   register: neoforge_install_result
 - name: Accept Minecraft EULA
   ansible.builtin.lineinfile:
+    create: "yes"
     group: beamc
     line: eula=true
     mode: "0644"
     owner: beamc
     path: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/eula.txt"
     regexp: ^eula=
-# - name: Update run.sh script
-#   ansible.builtin.template:
-#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/run.sh"
-#     group: beamc
-#     mode: "0755"
-#     owner: beamc
-#     src: run.sh.j2
-# - name: Update user_jvm_args.txt
-#   ansible.builtin.template:
-#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/user_jvm_args.txt"
-#     group: beamc
-#     mode: "0644"
-#     owner: beamc
-#     src: user_jvm_args.txt.j2
-# - name: Configure server.properties
-#   ansible.builtin.template:
-#     dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/server.properties"
-#     group: beamc
-#     mode: "0644"
-#     owner: beamc
-#     src: server.properties.j2
+- name: Update run.sh script
+  ansible.builtin.template:
+    dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/run.sh"
+    group: beamc
+    mode: "0755"
+    owner: beamc
+    src: run.sh.j2
+- name: Update user_jvm_args.txt
+  ansible.builtin.template:
+    dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/user_jvm_args.txt"
+    group: beamc
+    mode: "0644"
+    owner: beamc
+    src: user_jvm_args.txt.j2
+- name: Configure server.properties
+  ansible.builtin.template:
+    dest: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/server.properties"
+    group: beamc
+    mode: "0644"
+    owner: beamc
+    src: server.properties.j2
 # - name: Copy Minecraft mods archive to installs directory
 #   ansible.builtin.copy:
 #     dest: "{{ minecraft_base_dir }}/installs/mods/mods.tar.gz"
@@ -124,19 +125,27 @@
 #   ansible.builtin.file:
 #     path: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/mods/mods.tar.gz"
 #     state: absent
-# - name: Create Minecraft service file
-#   ansible.builtin.template:
-#     dest: /home/beamc/.config/systemd/user/{{ minecraft_server_name }}.service
-#     group: beamc
-#     mode: "0644"
-#     owner: beamc
-#     src: minecraft.service.j2
-# - name: Reload systemd daemon for user services
-#   ansible.builtin.command: systemctl --user daemon-reload
-#   changed_when: false
-# - name: Enable and start Minecraft service
-#   ansible.builtin.systemd_service:
-#     enabled: "yes"
-#     name: "{{ minecraft_server_name }}.service"
-#     scope: user
-#     state: started
+- name: Create systemd user service directory
+  ansible.builtin.file:
+    group: beamc
+    mode: "0755"
+    owner: beamc
+    path: /home/beamc/.config/systemd/user
+    state: directory
+- name: Create Minecraft service file
+  ansible.builtin.template:
+    dest: /home/beamc/.config/systemd/user/{{ minecraft_server_name }}.service
+    group: beamc
+    mode: "0644"
+    owner: beamc
+    src: minecraft.service.j2
+- name: Reload systemd daemon for user services
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    scope: user
+- name: Enable and start Minecraft service
+  ansible.builtin.systemd_service:
+    enabled: "yes"
+    name: "{{ minecraft_server_name }}.service"
+    scope: user
+    state: started
