@@ -695,6 +695,21 @@ Extra setup step not needs to get the Minecraft server running but would be nice
   }
   ```
 
+- Open the `/etc/nginx/sites-available/grafana.tabitv2.com` file and set the content in the `location` block
+
+  ```
+  limit_req zone=ratelimit burst=5 nodelay;
+  ```
+
+- Open the `/etc/nginx/nginx.conf` file and set the content in the `http` block
+
+  ```
+  server_tokens off;
+  client_max_body_size 10M;
+  client_body_buffer_size 128k;
+  limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=10r/s;
+  ```
+
 - Create the symlink
 
   ```bash
@@ -850,23 +865,6 @@ Extra setup step not needs to get the Minecraft server running but would be nice
   sudo fail2ban-client status nginx-bad-request
   sudo fail2ban-client status nginx-limit-req
   sudo fail2ban-client status sshd
-  ```
-
-### Further Setup nginx
-
-- Open the `/etc/nginx/nginx.conf` file and set the content in the `http` block
-
-  ```
-  server_tokens off;
-  client_max_body_size 10M;
-  client_body_buffer_size 128k;
-  limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=10r/s;
-  ```
-
-- Open the `/etc/nginx/sites-available/grafana.tabitv2.com` file and set the content in the `location` block
-
-  ```
-  limit_req zone=ratelimit burst=5 nodelay;
   ```
 
 ## Useful Commands
