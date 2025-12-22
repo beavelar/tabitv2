@@ -36,8 +36,8 @@
     - role: service_accounts
     - role: java_neoforge
       become_user: beamc
-    # - role: node_exporter
-    #   become_user: beaprom
+    - role: node_exporter
+      become_user: beaprom
     # - role: minecraft_exporter
     #   become_user: beamc
     # - role: prometheus

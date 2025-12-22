@@ -1,44 +1,51 @@
-# ---
-# - name: Create Node Exporter install directory
-#   ansible.builtin.file:
-#     path: "{{ node_exporter_install_dir }}"
-#     state: directory
-#     owner: beaprom
-#     group: beaprom
-#     mode: "0755"
-# - name: Download Node Exporter
-#   ansible.builtin.get_url:
-#     url: "{{ node_exporter_download_url }}"
-#     dest: "{{ node_exporter_install_dir }}/{{ node_exporter_version }}.tar.gz"
-#     owner: beaprom
-#     group: beaprom
-#     mode: "0644"
-# - name: Extract Node Exporter
-#   ansible.builtin.unarchive:
-#     src: "{{ node_exporter_install_dir }}/{{ node_exporter_version }}.tar.gz"
-#     dest: "{{ node_exporter_install_dir }}"
-#     remote_src: yes
-#     owner: beaprom
-#     group: beaprom
-# - name: Create Node Exporter service file
-#   ansible.builtin.template:
-#     src: node_exporter.service.j2
-#     dest: "/home/beaprom/.config/systemd/user/node_exporter.service"
-#     owner: beaprom
-#     group: beaprom
-#     mode: "0644"
-# - name: Reload systemd daemon for user services
-#   ansible.builtin.command: systemctl --user daemon-reload
-#   changed_when: false
-# - name: Enable and start Node Exporter service
-#   ansible.builtin.systemd_service:
-#     scope: user
-#     name: node_exporter.service
-#     state: started
-#     enabled: yes
-# - name: Verify Node Exporter endpoint
-#   ansible.builtin.uri:
-#     url: "http://localhost:{{ node_exporter_port }}/metrics"
-#     method: GET
-#     status_code: 200
-#   become: yes
+- name: Create Node Exporter install directory
+  ansible.builtin.file:
+    group: beaprom
+    mode: "0755"
+    owner: beaprom
+    path: "{{ node_exporter_install_dir }}"
+    state: directory
+- name: Download Node Exporter
+  ansible.builtin.get_url:
+    dest: "{{ node_exporter_install_dir }}/{{ node_exporter_extracted_dir }}.tar.gz"
+    group: beaprom
+    mode: "0644"
+    owner: beaprom
+    url: "{{ node_exporter_download_url }}"
+- name: Extract Node Exporter
+  ansible.builtin.unarchive:
+    dest: "{{ node_exporter_install_dir }}"
+    group: beaprom
+    owner: beaprom
+    remote_src: "yes"
+    src: "{{ node_exporter_install_dir }}/{{ node_exporter_extracted_dir }}.tar.gz"
+- name: Create systemd user service directory
+  ansible.builtin.file:
+    group: beaprom
+    mode: "0755"
+    owner: beaprom
+    path: /home/beaprom/.config/systemd/user
+    state: directory
+- name: Create Node Exporter service file
+  ansible.builtin.template:
+    dest: /home/beaprom/.config/systemd/user/node_exporter.service
+    group: beaprom
+    mode: "0644"
+    owner: beaprom
+    src: node_exporter.service.j2
+- name: Reload systemd daemon for user services
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    scope: user
+- name: Enable and start Node Exporter service
+  ansible.builtin.systemd_service:
+    enabled: "yes"
+    name: node_exporter.service
+    scope: user
+    state: started
+- name: Verify Node Exporter endpoint
+  ansible.builtin.uri:
+    method: GET
+    status_code: 200
+    url: http://localhost:{{ node_exporter_port }}/metrics
+  become: "yes"

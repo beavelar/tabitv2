@@ -1,0 +1,10 @@
+[Unit]
+Description=Node Exporter ({{ minecraft_server_name }})
+After=network.target
+
+[Service]
+ExecStart={{ node_exporter_install_dir }}/{{ node_exporter_extracted_dir }}/node_exporter --web.listen-address=":{{ node_exporter_port }}"
+Restart=always
+
+[Install]
+WantedBy=default.target
