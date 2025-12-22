@@ -1,1 +1,54 @@
 ---
+- name: Create Prometheus install directory
+  ansible.builtin.file:
+    group: beaprom
+    mode: "0755"
+    owner: beaprom
+    path: "{{ prometheus_install_dir }}"
+    state: directory
+- name: Download Prometheus
+  ansible.builtin.get_url:
+    dest: "{{ prometheus_install_dir }}/{{ prometheus_archive_name }}"
+    group: beaprom
+    mode: "0644"
+    owner: beaprom
+    url: "{{ prometheus_download_url }}"
+- name: Extract Prometheus
+  ansible.builtin.unarchive:
+    dest: "{{ prometheus_install_dir }}"
+    group: beaprom
+    owner: beaprom
+    remote_src: "yes"
+    src: "{{ prometheus_install_dir }}/{{ prometheus_archive_name }}"
+- name: Create systemd user service directory
+  ansible.builtin.file:
+    group: beaprom
+    mode: "0755"
+    owner: beaprom
+    path: /home/beaprom/.config/systemd/user
+    state: directory
+- name: Create Prometheus service file
+  ansible.builtin.template:
+    dest: /home/beaprom/.config/systemd/user/prometheus.service
+    group: beaprom
+    mode: "0644"
+    owner: beaprom
+    src: prometheus.service.j2
+- name: Reload systemd daemon for user services
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    scope: user
+- name: Enable and start Prometheus service
+  ansible.builtin.systemd_service:
+    enabled: "yes"
+    name: prometheus.service
+    scope: user
+    state: started
+- name: Verify Prometheus endpoint
+  ansible.builtin.uri:
+    method: GET
+    status_code: 200
+    url: http://localhost:{{ prometheus_port }}/metrics
+  become: "yes"
+  delay: 5
+  retries: 5

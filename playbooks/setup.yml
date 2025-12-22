@@ -40,8 +40,8 @@
       become_user: beaprom
     - role: minecraft_exporter
       become_user: beamc
-    # - role: prometheus
-    #   become_user: beaprom
+    - role: prometheus
+      become_user: beaprom
     # - role: grafana
     # - role: certbot
     # - role: fail2ban

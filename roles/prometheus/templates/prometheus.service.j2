@@ -1,0 +1,15 @@
+[Unit]
+After=network-online.target
+Description=Prometheus ({{ minecraft_server_name }})
+
+[Service]
+ExecStart={{ prometheus_install_dir }}/{{ prometheus_extracted_dir }}/prometheus \
+    --config.file={{ prometheus_install_dir }}/{{ prometheus_extracted_dir }}/prometheus.yml \
+    --storage.tsdb.path={{ prometheus_data_dir }} \
+    --web.console.templates={{ prometheus_install_dir }}/{{ prometheus_extracted_dir }}/consoles \
+    --web.console.libraries={{ prometheus_install_dir }}/{{ prometheus_extracted_dir }}/console_libraries \
+    --web.listen-address=:{{ prometheus_port }}
+Restart=always
+
+[Install]
+WantedBy=default.target
