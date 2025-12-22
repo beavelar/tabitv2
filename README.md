@@ -64,7 +64,41 @@ Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setu
 
    _If you haven't already SSH'd into the remote machine, do so at least once to add the host's fingerprint to your known_hosts file_
 
-6. Run the Ansible setup playbook run command
+6. Setup Cloudflare
+
+   a. In Cloudflare, select the domain for the Minecraft server
+
+   b. Navigate to DNS -> Records
+
+   c. Add a new record with the following
+
+   ```
+   - Type: A
+
+   - Name (required): minecraft.tabitv2.com
+
+   - IPv4 address (required): Server IP address
+
+   - Proxy status: Disabled
+   ```
+
+   d. Save
+
+   e. Add a new record with the following
+
+   ```
+   - Type: A
+
+   - Name (required): grafana.tabitv2.com
+
+   - IPv4 address (required): Server IP address
+
+   - Proxy status: Enabled
+   ```
+
+   f. Save
+
+7. Run the Ansible setup playbook run command
 
    ```bash
    ansible-playbook -i inventory.ini playbooks/setup.yml --ask-become-pass --ask-vault-pass

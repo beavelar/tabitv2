@@ -747,10 +747,11 @@ Extra setup step not needs to get the Minecraft server running but would be nice
   sudo vi /etc/grafana/grafana.ini
   ```
 
-- Restart grafana
+- Restart grafana and nginx
 
   ```bash
   sudo systemctl restart grafana-server
+  sudo systemctl restart nginx
   ```
 
 - Verify ability to view grafana UI through `https://grafana.tabitv2.com`

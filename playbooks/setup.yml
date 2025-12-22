@@ -44,7 +44,7 @@
       become_user: beaprom
     - role: grafana
     - role: nginx
-    # - role: certbot
+    - role: certbot
     # - role: fail2ban
   vars_files:
     - ../group_vars/all.yml

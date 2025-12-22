@@ -1,1 +1,38 @@
 ---
+- name: Install Certbot and nginx plugin
+  ansible.builtin.apt:
+    name:
+      - certbot
+      - python3-certbot-nginx
+    state: present
+    update_cache: "yes"
+- name: Run Certbot to get and install the certificate for {{ grafana_domain }}
+  ansible.builtin.command: >
+    certbot --nginx -d {{ grafana_domain }} --non-interactive --agree-tos -m
+    help@{{ domain }}
+  args:
+    creates: /etc/letsencrypt/live/{{ grafana_domain }}/fullchain.pem
+- name: Ensure Certbot timer is enabled and running for automatic renewal
+  ansible.builtin.systemd:
+    enabled: "yes"
+    name: certbot.timer
+    state: started
+- name: Set Grafana root_url in grafana.ini
+  ansible.builtin.ini_file:
+    backup: true
+    option: root_url
+    path: /etc/grafana/grafana.ini
+    section: server
+    value: "https://{{ grafana_domain }}"
+- name: Restart grafana-server
+  ansible.builtin.systemd:
+    daemon_reload: "yes"
+    enabled: "yes"
+    name: grafana-server
+    state: restarted
+- name: Restart nginx
+  ansible.builtin.systemd:
+    daemon_reload: "yes"
+    enabled: "yes"
+    name: nginx
+    state: restarted
