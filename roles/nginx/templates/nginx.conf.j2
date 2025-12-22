@@ -5,6 +5,7 @@ server {
     server_name {{ grafana_domain }};
 
     location / {
+        limit_req zone=ratelimit burst=5 nodelay;
         proxy_pass http://localhost:{{ grafana_http_port }};
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;

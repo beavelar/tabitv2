@@ -676,6 +676,15 @@ Extra setup step not needs to get the Minecraft server running but would be nice
   sudo apt install nginx
   ```
 
+- Open the `/etc/nginx/nginx.conf` file and set the content in the `http` block
+
+  ```
+  server_tokens off;
+  client_max_body_size 10M;
+  client_body_buffer_size 128k;
+  limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=10r/s;
+  ```
+
 - Create a `/etc/nginx/sites-available/grafana.tabitv2.com` file (change domain to the domain you own) and paste the following
 
   ```bash
@@ -686,6 +695,7 @@ Extra setup step not needs to get the Minecraft server running but would be nice
       server_name grafana.tabitv2.com;
 
       location / {
+          limit_req zone=ratelimit burst=5 nodelay;
           proxy_pass http://localhost:55503;
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
@@ -693,21 +703,6 @@ Extra setup step not needs to get the Minecraft server running but would be nice
           proxy_set_header X-Forwarded-Proto $scheme;
       }
   }
-  ```
-
-- Open the `/etc/nginx/sites-available/grafana.tabitv2.com` file and set the content in the `location` block
-
-  ```
-  limit_req zone=ratelimit burst=5 nodelay;
-  ```
-
-- Open the `/etc/nginx/nginx.conf` file and set the content in the `http` block
-
-  ```
-  server_tokens off;
-  client_max_body_size 10M;
-  client_body_buffer_size 128k;
-  limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=10r/s;
   ```
 
 - Create the symlink
