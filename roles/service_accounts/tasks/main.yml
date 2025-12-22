@@ -1,0 +1,61 @@
+---
+- name: Create 'beamc' group
+  ansible.builtin.group:
+    gid: "{{ beamc_gid }}"
+    name: beamc
+    state: present
+- name: Create 'beamc' user
+  ansible.builtin.user:
+    create_home: "yes"
+    group: beamc
+    name: beamc
+    shell: /bin/bash
+    state: present
+    uid: "{{ beamc_uid }}"
+- name: Ensure beamc's .ssh directory exists and has correct permissions
+  ansible.builtin.file:
+    group: beamc
+    mode: "0700"
+    owner: beamc
+    path: /home/beamc/.ssh
+    state: directory
+- name: Copy beamc's public key to authorized_keys
+  ansible.builtin.authorized_key:
+    key: "{{ lookup('file', beamc_pubkey_path) }}"
+    state: present
+    user: beamc
+- name: Enable lingering for 'beamc'
+  ansible.builtin.command: loginctl enable-linger beamc
+  args:
+    creates: /var/lib/systemd/linger/beamc
+  changed_when: false
+- name: Create 'beaprom' group
+  ansible.builtin.group:
+    gid: "{{ beaprom_gid }}"
+    name: beaprom
+    state: present
+- name: Create 'beaprom' user
+  ansible.builtin.user:
+    create_home: "yes"
+    group: beaprom
+    name: beaprom
+    shell: /bin/bash
+    state: present
+    uid: "{{ beaprom_uid }}"
+- name: Ensure beaprom's .ssh directory exists and has correct permissions
+  ansible.builtin.file:
+    group: beaprom
+    mode: "0700"
+    owner: beaprom
+    path: /home/beaprom/.ssh
+    state: directory
+- name: Copy beaprom's public key to authorized_keys
+  ansible.builtin.authorized_key:
+    key: "{{ lookup('file', beaprom_pubkey_path) }}"
+    state: present
+    user: beaprom
+- name: Enable lingering for 'beaprom'
+  ansible.builtin.command: loginctl enable-linger beaprom
+  args:
+    creates: /var/lib/systemd/linger/beaprom
+  changed_when: false

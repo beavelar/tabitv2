@@ -27,7 +27,7 @@
       when: ansible_facts.distribution == 'Ubuntu' or ansible_facts.distribution == 'Debian'
   roles:
     - role: ufw
-    # - role: users_ssh
+    - role: service_accounts
     # - role: java_neoforge
     #   become_user: beamc
     # - role: monitoring_node_exporter
