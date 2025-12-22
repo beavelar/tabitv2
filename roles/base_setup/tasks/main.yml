@@ -14,7 +14,7 @@
     group: beamcs
     groups: sudo
     name: beamcs
-    password: "{{ beamc_password | password_hash('sha512') }}"
+    password: "{{ beamcs_password | password_hash('sha512') }}"
     shell: /bin/bash
     state: present
     uid: "{{ beamcs_uid }}"
@@ -30,27 +30,34 @@
     key: "{{ lookup('file', beamcs_pubkey_path) }}"
     state: present
     user: beamcs
-# - name: Set PubkeyAuthentication to yes
-#   ansible.builtin.lineinfile:
-#     line: PubkeyAuthentication yes
-#     path: /etc/ssh/sshd_config
-#     regexp: "^#?PubkeyAuthentication "
-#     state: present
-#   notify: Restart sshd
-# - name: Set SSH port in sshd_config
-#   ansible.builtin.lineinfile:
-#     line: Port {{ ssh_port }}
-#     path: /etc/ssh/sshd_config
-#     regexp: "^#?Port "
-#     state: present
-#   notify: Restart sshd
-# - name: Disable PermitRootLogin in sshd_config
-#   ansible.builtin.lineinfile:
-#     line: PermitRootLogin no
-#     path: /etc/ssh/sshd_config
-#     regexp: "^#?PermitRootLogin "
-#     state: present
-#   notify: Restart sshd
-# - name: Lock the root account
-#   ansible.builtin.command: passwd -l root
-#   changed_when: false
+- name: Set PubkeyAuthentication to yes
+  ansible.builtin.lineinfile:
+    line: PubkeyAuthentication yes
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PubkeyAuthentication "
+    state: present
+  notify: Restart sshd
+- name: Set PasswordAuthentication to no
+  ansible.builtin.lineinfile:
+    line: PasswordAuthentication no
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PasswordAuthentication "
+    state: present
+  notify: Restart sshd
+- name: Set SSH port in sshd_config
+  ansible.builtin.lineinfile:
+    line: Port {{ ssh_port }}
+    path: /etc/ssh/sshd_config
+    regexp: "^#?Port "
+    state: present
+  notify: Restart sshd
+- name: Disable PermitRootLogin in sshd_config
+  ansible.builtin.lineinfile:
+    line: PermitRootLogin no
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PermitRootLogin "
+    state: present
+  notify: Restart sshd
+- name: Lock the root account
+  ansible.builtin.command: passwd -l root
+  changed_when: false
