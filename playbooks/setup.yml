@@ -1,6 +1,7 @@
 ---
 - name: Set up Minecraft Server with Monitoring and Security
   become: yes
+  gather_facts: yes
   hosts: minecraft_servers
   post_tasks:
     - name: "EXTERNAL STEP: Add firewall rules in your hosting provider"

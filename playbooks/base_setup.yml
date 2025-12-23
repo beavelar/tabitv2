@@ -1,6 +1,7 @@
 ---
 - name: Initial Minecraft Server Setup
   become: yes
+  gather_facts: yes
   hosts: minecraft_servers_root
   pre_tasks:
     - name: Ensure Python 3 is available

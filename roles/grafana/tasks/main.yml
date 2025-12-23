@@ -45,6 +45,7 @@
     path: /etc/grafana/grafana.ini
     section: server
     value: "{{ grafana_http_port }}"
+  notify: Restart Grafana service
 - name: Configure anonymous authentication in grafana.ini
   ansible.builtin.ini_file:
     backup: true
@@ -52,6 +53,7 @@
     path: /etc/grafana/grafana.ini
     section: auth.anonymous
     value: "false"
+  notify: Restart Grafana service
 - name: Configure user signup in grafana.ini
   ansible.builtin.ini_file:
     backup: true
@@ -59,8 +61,9 @@
     path: /etc/grafana/grafana.ini
     section: users
     value: "false"
+  notify: Restart Grafana service
 - name: Restart Grafana service
-  ansible.builtin.systemd_service:
+  ansible.builtin.systemd:
     enabled: "yes"
     name: grafana-server
     state: restarted

@@ -26,13 +26,11 @@
     value: "https://{{ grafana_domain }}"
 - name: Restart grafana-server
   ansible.builtin.systemd:
-    daemon_reload: "yes"
     enabled: "yes"
     name: grafana-server
     state: restarted
 - name: Restart nginx
   ansible.builtin.systemd:
-    daemon_reload: "yes"
     enabled: "yes"
     name: nginx
     state: restarted

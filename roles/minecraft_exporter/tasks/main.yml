@@ -21,20 +21,23 @@
     owner: beamc
     remote_src: "yes"
     src: "{{ mc_prom_exporter_install_dir }}/{{ mc_prom_exporter_jar_name }}"
+  notify: Restart Minecraft service
 - name: Restart Minecraft service
   ansible.builtin.systemd_service:
     enabled: "yes"
     name: "{{ minecraft_server_name }}.service"
     scope: user
     state: restarted
-- name: Pause for 15 seconds
+- name: Wait for Minecraft service to be ready
   ansible.builtin.pause:
     seconds: 15
 - name: Replace listen_port value in the file
-  ansible.builtin.replace:
+  ansible.builtin.ini_file:
+    backup: true
+    option: listen_port
     path: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}/config/prometheus_exporter-server.toml"
-    regexp: '^(\s*listen_port\s*=\s*)\d+$'
-    replace: '\g<1>{{ mc_prom_exporter_port }}'
+    section: web
+    value: "{{ mc_prom_exporter_port }}"
 - name: Restart Minecraft service
   ansible.builtin.systemd_service:
     enabled: "yes"
@@ -48,4 +51,4 @@
     url: http://localhost:{{ mc_prom_exporter_port }}/metrics
   become: "yes"
   delay: 5
-  retries: 5
+  retries: 10

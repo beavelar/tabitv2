@@ -1,0 +1,11 @@
+---
+- name: Reload systemd user daemon
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    scope: user
+- name: Restart Node Exporter service
+  ansible.builtin.systemd_service:
+    enabled: "yes"
+    name: node_exporter.service
+    scope: user
+    state: restarted

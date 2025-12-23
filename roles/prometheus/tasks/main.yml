@@ -34,10 +34,7 @@
     mode: "0644"
     owner: beaprom
     src: prometheus.service.j2
-- name: Reload systemd daemon for user services
-  ansible.builtin.systemd_service:
-    daemon_reload: true
-    scope: user
+  notify: Reload systemd user daemon
 - name: Enable and start Prometheus service
   ansible.builtin.systemd_service:
     enabled: "yes"

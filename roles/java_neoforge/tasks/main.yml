@@ -63,10 +63,11 @@
   ansible.builtin.command: "{{ java_install_dir }}/{{ java_extracted_dir }}/bin/java -jar {{ neoforge_installer_name }} --installServer"
   args:
     chdir: "{{ minecraft_base_dir }}/{{ minecraft_server_name }}"
+  register: neoforge_install_result
   changed_when: >-
     neoforge_install_result.rc == 0 and 'Extracting server files' in
     neoforge_install_result.stdout
-  register: neoforge_install_result
+  failed_when: neoforge_install_result.rc != 0
 - name: Accept Minecraft EULA
   ansible.builtin.lineinfile:
     create: "yes"
@@ -133,10 +134,7 @@
     mode: "0644"
     owner: beamc
     src: minecraft.service.j2
-- name: Reload systemd daemon for user services
-  ansible.builtin.systemd_service:
-    daemon_reload: true
-    scope: user
+  notify: Reload systemd user daemon
 - name: Enable and start Minecraft service
   ansible.builtin.systemd_service:
     enabled: "yes"

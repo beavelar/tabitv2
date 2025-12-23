@@ -16,8 +16,4 @@
     mode: "0644"
     owner: root
     src: jail.local.j2
-- name: Restart fail2ban service
-  ansible.builtin.systemd_service:
-    enabled: "yes"
-    name: fail2ban.service
-    state: restarted
+  notify: Restart fail2ban service
