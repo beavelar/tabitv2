@@ -1,6 +1,6 @@
 # TabitV2 Minecraft Server Setup
 
-Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setup steps can be viewed through the (setup)[/setup.md] steps. Steps below are to setup with the aid of Ansible
+Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setup steps can be viewed through the [setup](setup.md) steps. Steps below are to setup with the aid of Ansible
 
 ## Prerequisites
 
