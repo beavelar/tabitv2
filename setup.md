@@ -682,7 +682,7 @@ Extra setup step not needs to get the Minecraft server running but would be nice
   server_tokens off;
   client_max_body_size 10M;
   client_body_buffer_size 128k;
-  limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=10r/s;
+  limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=250r/s;
   ```
 
 - Create a `/etc/nginx/sites-available/grafana.tabitv2.com` file (change domain to the domain you own) and paste the following

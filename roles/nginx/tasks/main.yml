@@ -10,7 +10,7 @@
       server_tokens off;
       client_max_body_size 10M;
       client_body_buffer_size 128k;
-      limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=10r/s;
+      limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=250r/s;
     insertafter: http {
     marker: "# {mark} ANSIBLE MANAGED BLOCK for global nginx HTTP settings"
     path: /etc/nginx/nginx.conf
