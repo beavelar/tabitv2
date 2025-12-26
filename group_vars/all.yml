@@ -253,9 +253,6 @@ minecraft_mods:
   - name: rctmod-neoforge-1.21.1-0.17.4-beta.jar
     url: https://cdn.modrinth.com/data/lRwTUnD7/versions/62LcpnUU/rctmod-neoforge-1.21.1-0.17.4-beta.jar
     checksum: "sha256:5af54f03ad8b3b42634ee972f59ddc92cdb0252b6bd0d6953875805d49b12e66"
-  - name: serversidehorror-1.21.1-neoforge-4.jar
-    url: https://cdn.modrinth.com/data/RJ4U0qmn/versions/OxQ6JZ21/serversidehorror-1.21.1-neoforge-4.jar
-    checksum: "sha256:579ebe7483d6b83f1cdd9a8fc00ebc7f04a8c0cee280ffab9ffcb55f58b7b2bc"
   - name: sodium-neoforge-0.6.13+mc1.21.1.jar
     url: https://cdn.modrinth.com/data/AANobbMI/versions/Pb3OXVqC/sodium-neoforge-0.6.13%2Bmc1.21.1.jar
     checksum: "sha256:7acd7af2ef75ec883a6872c17494ead65e38025151eb08a1d60e36d34377f403"
