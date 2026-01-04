@@ -274,6 +274,18 @@ minecraft_mods:
   - name: waystones-neoforge-1.21.1-21.1.25.jar
     url: https://cdn.modrinth.com/data/LOpKHB2A/versions/f4A1aY3t/waystones-neoforge-1.21.1-21.1.25.jar
     checksum: "sha256:45533f2fae2991e7b86c02f512e07b0a7c0abcf17ecd54de87e1e5b8b9353e3b"
+  - name: irons_spellbooks-1.21.1-3.14.8.jar
+    url: https://cdn.modrinth.com/data/s4OWxYQQ/versions/4GN2MStD/irons_spellbooks-1.21.1-3.14.8.jar
+    checksum: "sha256:aec944bfa1eab13d4a6fa5156feb616c227ca6e16b80442cdd7d3f0cd1d55a51"
+  - name: "L_Ender's Cataclysm 1.21.1-3.16.jar"
+    url: https://cdn.modrinth.com/data/46KJle7n/versions/FSm3cpWc/L_Ender%27s%20Cataclysm%201.21.1-3.16.jar
+    checksum: "sha256:dc935d7e414e0e32696ba547dcccf87c47d77b1b952cd7fd4bb2b0a007251f27"
+  - name: lionfishapi-2.6.jar
+    url: https://cdn.modrinth.com/data/FoVacERa/versions/RdsxgL41/lionfishapi-2.6.jar
+    checksum: "sha256:7e56b7f00e8351bba0a513dd9bcf59d82a0ccde82f1f0fe4ce378ccaad10025f"
+  - name: player-animation-lib-forge-2.0.4+1.21.1.jar
+    url: https://cdn.modrinth.com/data/gedNE4y2/versions/HJZB6bmA/player-animation-lib-forge-2.0.4%2B1.21.1.jar
+    checksum: "sha256:dbe5de45f5cd60c0e5e47af14e6d564534a98456e973cf670cb881f6938eee92"
 minecraft_mods_install_dir: "{{ minecraft_base_dir }}/tabitv2/mods"
 
 # Prometheus Node Exporter (beaprom user)
