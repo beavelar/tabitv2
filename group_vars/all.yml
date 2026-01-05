@@ -34,6 +34,9 @@ minecraft_mods:
   - name: accessories-neoforge-1.1.0-beta.52+1.21.1.jar
     url: https://cdn.modrinth.com/data/jtmvUHXj/versions/CtRim6mz/accessories-neoforge-1.1.0-beta.52%2B1.21.1.jar
     checksum: sha256:7a3f655c1593b14424b678b5f06c6f87374b8551aa7496dae5e64143ae5a59b0
+  - name: aether-1.21.1-1.5.10-neoforge.jar
+    url: https://cdn.modrinth.com/data/YhmgMVyu/versions/K5X5qMwG/aether-1.21.1-1.5.10-neoforge.jar
+    checksum: sha256:a999a9265eb550a46a0f8eedfee7c3c75371d7f6cf34b7c09ff800e48633e9f8
   - name: All-The-Wood-Weve-Got-NeoForge-2.2.3.jar
     url: https://cdn.modrinth.com/data/qvq8iHWh/versions/remQLUL1/All-The-Wood-Weve-Got-NeoForge-2.2.3.jar
     checksum: sha256:c908adcd9efebfd43bd132527e44ae9bdfcdeed648518db492cba9fc7ad8c4a7
@@ -100,6 +103,9 @@ minecraft_mods:
   - name: Corgilib-NeoForge-1.21.1-5.0.0.7.jar
     url: https://cdn.modrinth.com/data/ziOp6EO8/versions/nQqU8c1K/Corgilib-NeoForge-1.21.1-5.0.0.7.jar
     checksum: sha256:a43d07254c09bc5e40ab1b4897dfaef76594aab7ef1cdb4c3ec895081186119f
+  - name: cumulus_menus-1.21.1-2.0.8-neoforge.jar
+    url: https://cdn.modrinth.com/data/sq1f0DCq/versions/J49frL2W/cumulus_menus-1.21.1-2.0.8-neoforge.jar
+    checksum: sha256:aa1d3ce66da67dd32bc85aea2a58e5e8a26da77f1bc7bff75252ed7d4fd6be0f
   - name: cupboard-1.21-2.9.jar
     url: https://mediafilez.forgecdn.net/files/6078/150/cupboard-1.21-2.9.jar
     checksum: sha256:0d7093deae83d223674e3bf0fc37943658f3f028e655df6f9e25209c32f41668
