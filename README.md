@@ -48,6 +48,8 @@ Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setu
    ansible-vault create group_vars/vault.yml
    ```
 
+   _You will be prompted for a password, ensure to keep track of the password used_
+
 4. In the vault, set the following values
 
    ```
@@ -63,6 +65,10 @@ Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setu
    ```
 
    _If you haven't already SSH'd into the remote machine, do so at least once to add the host's fingerprint to your known_hosts file_
+
+   _When prompted for the SSH password, provide the password for the root account_
+
+   _When prompted for the vault password, provide the password set in the steps above for the Ansible vault_
 
 6. Setup Cloudflare
 
@@ -103,3 +109,7 @@ Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setu
    ```bash
    ansible-playbook -i inventory.ini playbooks/setup.yml --ask-become-pass --ask-vault-pass
    ```
+
+   _When prompted for the BECOME password, provide the password for the beamcs account_
+
+   _When prompted for the vault password, provide the password set in the steps above for the Ansible vault_
