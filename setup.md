@@ -18,7 +18,6 @@ The minimum setup to get a Minecraft server running. This will not include extra
 ### Changing SSH port
 
 - Open the SSH daemon configuration file to edit the port
-
   - Change "Port" to 1738
 
   ```bash
@@ -60,7 +59,6 @@ The minimum setup to get a Minecraft server running. This will not include extra
   ```
 
 - Open the SSH daemon configuration file
-
   - Change `PermitRootLogin` to **no**
 
   ```bash
@@ -76,7 +74,6 @@ The minimum setup to get a Minecraft server running. This will not include extra
 ### Creating non-sudo accounts for the services
 
 - Create beamc and beaprom user and group
-
   - beamc - Used to start/stop the minecraft server and any installations necessary for minecraft
 
   - beaprom - Used to start/stop the prometheus servers and any installations necessary for prometheus
@@ -112,13 +109,12 @@ The minimum setup to get a Minecraft server running. This will not include extra
 ### Setting up pubkey authentication and removing password authentication
 
 - `EXTERNAL STEP`
-
   - In the host machine, generate a key for each account (`beamc`, `beamcs`, and `beaprom`)
 
   ```bash
-  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beamc
-  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beamcs
-  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beaprom
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_hetz_beamc
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_hetz_beamcs
+  ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_hetz_beaprom
   ```
 
 - In each account create the `.ssh` directory
@@ -128,8 +124,7 @@ The minimum setup to get a Minecraft server running. This will not include extra
   ```
 
 - In each account create a `authorized_keys` file
-
-  - Copy/paste the content of the `id_ed25519_linodemc_<user>.pub` file created above into this `authorized_keys` file
+  - Copy/paste the content of the `id_ed25519_hetz_<user>.pub` file created above into this `authorized_keys` file
 
   ```bash
   vi ~/.ssh/authorized_keys
@@ -143,7 +138,6 @@ The minimum setup to get a Minecraft server running. This will not include extra
   ```
 
 - In the sudo account open the SSH daemon configuration file
-
   - Set `PasswordAuthentication` to **no**
 
   - Set `PubkeyAuthentication` to **yes**
@@ -159,26 +153,25 @@ The minimum setup to get a Minecraft server running. This will not include extra
   ```
 
 - `EXTERNAL STEP`
-
   - Create or edit the `~/.ssh/config` to copy the following content
 
   ```
-  Host linodemc-beamc
+  Host hetz-beamc
       HostName <ip-address>
       User beamc
-      IdentityFile ~/.ssh/id_ed25519_linodemc_beamc
+      IdentityFile ~/.ssh/id_ed25519_hetz_beamc
       Port 1738
 
-  Host linodemc-beamcs
+  Host hetz-beamcs
       HostName <ip-address>
       User beamcs
-      IdentityFile ~/.ssh/id_ed25519_linodemc_beamcs
+      IdentityFile ~/.ssh/id_ed25519_hetz_beamcs
       Port 1738
 
-  Host linodemc-beaprom
+  Host hetz-beaprom
       HostName <ip-address>
       User beaprom
-      IdentityFile ~/.ssh/id_ed25519_linodemc_beaprom
+      IdentityFile ~/.ssh/id_ed25519_hetz_beaprom
       Port 1738
   ```
 
@@ -200,7 +193,6 @@ The minimum setup to get a Minecraft server running. This will not include extra
   ```
 
 - Download Java
-
   - The following command will download a specific version from Adoption
 
   - Verify this version is the right version and if it's the latest
@@ -216,7 +208,6 @@ The minimum setup to get a Minecraft server running. This will not include extra
   ```
 
 - Add the following to the end of the file
-
   - Verify the path correctly points to Java
 
   ```
@@ -273,7 +264,6 @@ The following steps will be for a NeoForge server (specifically for 21.1.216). I
   ```
 
 - Update the user_jvm_args.txt file to add the following line
-
   - You may need to adjust depending on the server spec or Minecraft/mod loader versions used
 
   ```
@@ -367,13 +357,12 @@ The following steps will be for a NeoForge server (specifically for 21.1.216). I
   ```
 
 - EXTERNAL STEP
-
   - Download all the mods we're using locally and tar.gz the directory if it's not already
 
   - Copy the local files to the `minecraft` installs files
 
   ```bash
-  scp -c aes128-ctr ./mods.tar.gz linodemc-beamc:/home/beamc/minecraft/installs/mods/mods.tar.gz
+  scp -c aes128-ctr ./mods.tar.gz hetz-beamc:/home/beamc/minecraft/installs/mods/mods.tar.gz
   ```
 
 - Navigate to the `~/minecraft/installs/mods` directory, copy the `mods.tar.gz` file to the `~/minecraft/tabitv2/mods`, untar file and cleanup
@@ -387,7 +376,6 @@ The following steps will be for a NeoForge server (specifically for 21.1.216). I
   ```
 
 - Run the run.sh script and verify the server starts
-
   - You should be able to connect to the server through Minecraft at this point
 
   ```bash
@@ -439,7 +427,6 @@ The following steps will be for a NeoForge server (specifically for 21.1.216). I
 - Navigate to DNS -> Records
 
 - Add a new record with the following
-
   - `Type`: A
 
   - `Name (required)`: `minecraft.tabitv2.com`
@@ -457,7 +444,6 @@ Extra setup step not needs to get the Minecraft server running but would be nice
 ### Install and Configuring Node Exporter
 
 - In the `beaprom` account, create and navigate to the `~/installs/node_exporter` directory and download Node Exporter
-
   - The download link is for a specific version, if a newer version is available use the newer version
 
   ```bash
@@ -468,7 +454,6 @@ Extra setup step not needs to get the Minecraft server running but would be nice
   ```
 
 - Create a `~/.config/systemd/user/node_exporter.service` file and paste the following content
-
   - Verify the path and ports are correct and desired
 
   ```
@@ -502,7 +487,6 @@ Extra setup step not needs to get the Minecraft server running but would be nice
 ### Install and Configuring minecraft-prometheus-exporter
 
 - In the beamc account, navigate to the `~/minecraft/installs/prometheus_exporter` directory, download the minecraft-prometheus-exporter file, and copy to the `~/minecraft/tabitv2/mods` directory
-
   - The download link is for a specific version of the file. If there's a newer version use the latest verion
 
   ```bash
@@ -526,7 +510,6 @@ Extra setup step not needs to get the Minecraft server running but would be nice
 ### Install and Configuring Prometheus
 
 - In the beaprom account, create and navigate to the `~/installs/prometheus` directory and download the Prometheus file
-
   - The download link is for a specific version, if there is a newer version use the latest version
 
   ```bash
@@ -647,7 +630,6 @@ Extra setup step not needs to get the Minecraft server running but would be nice
 - Navigate to DNS -> Records
 
 - Add a new record with the following
-
   - `Type`: A
 
   - `Name (required)`: `grafana.tabitv2.com`
@@ -663,7 +645,6 @@ Extra setup step not needs to get the Minecraft server running but would be nice
 - Set SSL/TLS encryption to `Full (strict)`
 
 - Navigate to Security -> Settings
-
   - Turn on `Bot fight mode`
 
   - Update `Manage your robots.txt` configuration to restrict the bot policy
@@ -872,19 +853,19 @@ Ussful commands for the ease of copying/pasting
 - beamc
 
   ```bash
-  ssh linodemc-beamc
+  ssh hetz-beamc
   ```
 
 - beamcs
 
   ```bash
-  ssh linodemc-beamcs
+  ssh hetz-beamcs
   ```
 
 - beaprom
 
   ```bash
-  ssh linodemc-beaprom
+  ssh hetz-beaprom
   ```
 
 ### Create a backup tar.gz
@@ -904,13 +885,13 @@ tar --use-compress-program="pigz -p 8" -xvf <source-file>.tar.gz
 - Copy from remote server to local machine
 
   ```bash
-  scp -c aes128-ctr linodemc-<user>:/file ./file
+  scp -c aes128-ctr hetz-<user>:/file ./file
   ```
 
 - Copy from local machine to remote server
 
   ```bash
-  scp -c aes128-ctr ./file linodemc-<user>:/file
+  scp -c aes128-ctr ./file hetz-<user>:/file
   ```
 
 ### Starting the service

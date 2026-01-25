@@ -11,33 +11,33 @@ Ansible playbook to consistently setup the TabitV2 Minecraft server. Manual setu
 1. In the host machine, generate a SSH key for each account (`beamc`, `beamcs`, and `beaprom`)
 
    ```bash
-   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beamc
-   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beamcs
-   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_linodemc_beaprom
+   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_hetz_beamc
+   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_hetz_beamcs
+   ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_hetz_beaprom
    ```
 
 2. Create or edit the `~/.ssh/config` file, paste the following content
 
    ```
-   Host linodemc-root
+   Host hetz-root
        HostName <ip-address>
        User root
 
-    Host linodemc-beamc
+    Host hetz-beamc
        HostName <ip-address>
        User beamc
-       IdentityFile ~/.ssh/id_ed25519_linodemc_beamc
+       IdentityFile ~/.ssh/id_ed25519_hetz_beamc
        Port 1738
 
-    Host linodemc-beamcs
+    Host hetz-beamcs
        HostName <ip-address>
        User beamcs
-       IdentityFile ~/.ssh/id_ed25519_linodemc_beamcs
+       IdentityFile ~/.ssh/id_ed25519_hetz_beamcs
 
-    Host linodemc-beaprom
+    Host hetz-beaprom
        HostName <ip-address>
        User beaprom
-       IdentityFile ~/.ssh/id_ed25519_linodemc_beaprom
+       IdentityFile ~/.ssh/id_ed25519_hetz_beaprom
    ```
 
    _Ensure to change `<ip-address>` to the IP address of the remote machine_
