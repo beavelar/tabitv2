@@ -20,6 +20,14 @@
     owner: beaprom
     remote_src: "yes"
     src: "{{ prometheus_install_dir }}/{{ prometheus_archive_name }}"
+- name: Create Prometheus configuration file
+  ansible.builtin.template:
+    dest: "{{ prometheus_install_dir }}/{{ prometheus_archive_name }}/prometheus.yml"
+    group: beaprom
+    mode: "0644"
+    owner: beaprom
+    src: prometheus.yml.j2
+  notify: Reload systemd user daemon
 - name: Create systemd user service directory
   ansible.builtin.file:
     group: beaprom
