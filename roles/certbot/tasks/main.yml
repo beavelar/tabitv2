@@ -9,7 +9,7 @@
 - name: Run Certbot to get and install the certificate for {{ grafana_domain }}
   ansible.builtin.command: >
     certbot --nginx -d {{ grafana_domain }} --non-interactive --agree-tos -m
-    help@{{ domain }}
+    support@{{ domain }}
   args:
     creates: /etc/letsencrypt/live/{{ grafana_domain }}/fullchain.pem
 - name: Ensure Certbot timer is enabled and running for automatic renewal
