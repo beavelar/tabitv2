@@ -58,6 +58,14 @@
     regexp: "^#?PermitRootLogin "
     state: present
   notify: Restart sshd
+- name: Create 01-ssh.conf file
+  ansible.builtin.template:
+    dest: /etc/ssh/sshd_config.d/01-ssh.conf
+    group: root
+    mode: "0600"
+    owner: root
+    src: 01-ssh.conf.j2
+  notify: Restart sshd
 - name: Lock the root account
   ansible.builtin.command: passwd -l root
   changed_when: false
